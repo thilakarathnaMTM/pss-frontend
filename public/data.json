@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "id": "USR-001",
+      "email": "manager@abcgarments.lk",
+      "password": "energy@2024",
+      "name": "Kavinda Wickramasinghe",
+      "role": "Plant Manager",
+      "facilityCode": "ABC-KATUNAYAKE-01",
+      "facilityName": "ABC Garments"
+    },
+    {
+      "id": "USR-002",
+      "email": "engineer@abcgarments.lk",
+      "password": "engine@2024",
+      "name": "Nimal Perera",
+      "role": "Plant Engineer",
+      "facilityCode": "ABC-KATUNAYAKE-01",
+      "facilityName": "ABC Garments"
+    },
+    {
+      "id": "USR-003",
+      "email": "supervisor@abcgarments.lk",
+      "password": "shift@2024",
+      "name": "Saman Jayawardena",
+      "role": "Shift Supervisor",
+      "facilityCode": "ABC-KATUNAYAKE-01",
+      "facilityName": "ABC Garments"
+    }
+  ],
+  "facility": {
+    "name": "ABC Garments",
+    "code": "ABC-KATUNAYAKE-01",
+    "manager": "Kavinda Wickramasinghe",
+    "role": "Plant Manager",
+    "tariff": "CEB Industrial Tariff I-2 / I-3",
+    "startTime": "07:00 AM",
+    "endTime": "09:00 PM",
+    "workingDays": 26
+  },
+  "tariffs": [
+    { "id": "TRF-01", "period": "Off-Peak", "startTime": "10:30 PM", "endTime": "5:30 AM", "rate": 15 },
+    { "id": "TRF-02", "period": "Day", "startTime": "5:30 AM", "endTime": "6:30 PM", "rate": 25 },
+    { "id": "TRF-03", "period": "Peak", "startTime": "6:30 PM", "endTime": "10:30 PM", "rate": 45 }
+  ],
+  "machines": [
+    { "id": "MCH-CUT-01", "name": "Fabric Cutter", "category": "Cutting", "quantity": 2, "power": 4, "hours": 3, "window": "08:00 AM – 11:00 AM", "priority": "High", "saving": 240, "tone": "blue" },
+    { "id": "MCH-SEW-01", "name": "Sewing Machine Line", "category": "Sewing", "quantity": 10, "power": 0.5, "hours": 8, "window": "08:00 AM – 04:30 PM", "priority": "High", "saving": 0, "tone": "green" },
+    { "id": "MCH-FIN-01", "name": "Steam Ironing Station", "category": "Finishing", "quantity": 2, "power": 3, "hours": 5, "window": "10:00 AM – 03:00 PM", "priority": "Medium", "saving": 240, "tone": "amber" }
+  ],
+  "optimization": {
+    "currentCost": 2830,
+    "optimizedCost": 2350,
+    "dailySaving": 480,
+    "monthlySaving": 12480,
+    "energy": 94,
+    "savingPercent": 16.97
+  },
+  "reports": [
+    { "id": "RPT-001", "date": "2024-09-01", "currentCost": 2830, "optimizedCost": 2350, "saving": 480, "energy": 94 },
+    { "id": "RPT-002", "date": "2024-09-02", "currentCost": 2850, "optimizedCost": 2360, "saving": 490, "energy": 95 },
+    { "id": "RPT-003", "date": "2024-09-03", "currentCost": 2810, "optimizedCost": 2340, "saving": 470, "energy": 93 },
+    { "id": "RPT-004", "date": "2024-09-04", "currentCost": 2840, "optimizedCost": 2355, "saving": 485, "energy": 94 },
+    { "id": "RPT-005", "date": "2024-09-05", "currentCost": 2860, "optimizedCost": 2370, "saving": 490, "energy": 95 },
+    { "id": "RPT-006", "date": "2024-09-06", "currentCost": 2820, "optimizedCost": 2345, "saving": 475, "energy": 94 },
+    { "id": "RPT-007", "date": "2024-09-07", "currentCost": 2830, "optimizedCost": 2350, "saving": 480, "energy": 94 }
+  ]
+}

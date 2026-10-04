@@ -1,0 +1,133 @@
+{
+  "users": [
+    {
+      "id": "USR-001",
+      "email": "tharuka@nookclothes.lk",
+      "password": "energy@2024",
+      "name": "Tharuka Thilakarathna",
+      "role": "Plant Manager",
+      "facilityCode": "NOOK-01",
+      "facilityName": "Nook Clothes",
+      "phone": "0771234567"
+    },
+    {
+      "id": "USR-002",
+      "email": "engineer@nookclothes.lk",
+      "password": "engine@2024",
+      "name": "Nimal Perera",
+      "role": "Engineer",
+      "facilityCode": "NOOK-01",
+      "facilityName": "Nook Clothes",
+      "phone": "0777654321"
+    }
+  ],
+  "facility": {
+    "name": "Nook Clothes",
+    "code": "NOOK-01",
+    "manager": "Tharuka Thilakarathna",
+    "role": "Plant Manager",
+    "tariff": "CEB Industrial Tariff I-2 / I-3",
+    "startTime": "07:00",
+    "endTime": "21:00",
+    "workingDays": 26
+  },
+  "tariffs": [
+    {
+      "id": "1",
+      "period": "Off-Peak",
+      "startTime": "22:30",
+      "endTime": "05:30",
+      "rate": 33
+    },
+    {
+      "id": "2",
+      "period": "Day",
+      "startTime": "05:30",
+      "endTime": "18:30",
+      "rate": 47
+    },
+    {
+      "id": "3",
+      "period": "Peak",
+      "startTime": "18:30",
+      "endTime": "22:30",
+      "rate": 106
+    }
+  ],
+  "machines": [
+    {
+      "id": "MCH-CUT-01",
+      "name": "Fabric Cutter",
+      "modelName": "Juki Cutter Pro X1",
+      "category": "Cutting",
+      "quantity": 2,
+      "power": 4000,
+      "hours": 3,
+      "window": "08:00 AM – 06:00 PM",
+      "priority": "High",
+      "saving": 0,
+      "tone": "blue"
+    },
+    {
+      "id": "MCH-SEW-01",
+      "name": "Sewing Machine Line",
+      "modelName": "Brother Industrial S-7200",
+      "category": "Sewing",
+      "quantity": 10,
+      "power": 500,
+      "hours": 8,
+      "window": "08:00 AM – 05:00 PM",
+      "priority": "High",
+      "saving": 0,
+      "tone": "green"
+    },
+    {
+      "id": "MCH-OVL-01",
+      "name": "Overlock Machine",
+      "modelName": "Pegasus M700",
+      "category": "Finishing",
+      "quantity": 4,
+      "power": 750,
+      "hours": 6,
+      "window": "08:00 AM – 06:00 PM",
+      "priority": "Medium",
+      "saving": 0,
+      "tone": "amber"
+    },
+    {
+      "id": "MCH-IRN-01",
+      "name": "Steam Iron Station",
+      "modelName": "Veit 8941",
+      "category": "Finishing",
+      "quantity": 3,
+      "power": 2200,
+      "hours": 4,
+      "window": "09:00 AM – 06:00 PM",
+      "priority": "Medium",
+      "saving": 0,
+      "tone": "blue"
+    },
+    {
+      "id": "MCH-WSH-01",
+      "name": "Washing Unit",
+      "modelName": "Tolkar Smartwash",
+      "category": "Washing",
+      "quantity": 1,
+      "power": 5500,
+      "hours": 2,
+      "window": "07:00 AM – 08:00 PM",
+      "priority": "Low",
+      "saving": 0,
+      "tone": "green"
+    }
+  ],
+  "optimization": {
+    "currentCost": 0,
+    "optimizedCost": 0,
+    "dailySaving": 0,
+    "monthlySaving": 0,
+    "energy": 0,
+    "savingPercent": 0
+  },
+  "reports": []
+}

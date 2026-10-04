@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#000000","surface-container-high":"#dce9ff","surface":"#f8f9ff","primary-fixed":"#dae2fd","on-secondary":"#ffffff","tertiary":"#000000","outline-variant":"#c6c6cd","secondary-fixed":"#89f5e7","surface-variant":"#d3e4fe","on-primary":"#ffffff","on-primary-container":"#7c839b","on-error-container":"#93000a","on-background":"#0b1c30","on-secondary-fixed-variant":"#005049","surface-bright":"#f8f9ff","surface-container-low":"#eff4ff","surface-dim":"#cbdbf5","tertiary-container":"#002113","surface-tint":"#565e74","inverse-on-surface":"#eaf1ff","on-tertiary-fixed-variant":"#005236","primary-fixed-dim":"#bec6e0","secondary-container":"#86f2e4","on-tertiary":"#ffffff","primary-container":"#131b2e","on-tertiary-container":"#009668","on-tertiary-fixed":"#002113","on-primary-fixed-variant":"#3f465c","tertiary-fixed":"#6ffbbe","tertiary-fixed-dim":"#4edea3","on-error":"#ffffff","surface-container":"#e5eeff","secondary-fixed-dim":"#6bd8cb","background":"#f8f9ff","on-primary-fixed":"#131b2e","secondary":"#006a61","on-surface-variant":"#45464d","outline":"#76777d","on-surface":"#0b1c30","inverse-surface":"#213145","on-secondary-fixed":"#00201d","error-container":"#ffdad6","inverse-primary":"#bec6e0","surface-container-highest":"#d3e4fe","on-secondary-container":"#006f66","error":"#ba1a1a","surface-container-lowest":"#ffffff"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-2xs":"0.125rem","space-lg":"1.5rem","space-sm":"0.5rem","margin-lg":"2rem","gutter":"1.25rem","space-xl":"2rem","margin-md":"1.5rem","margin":"1rem","gutter-lg":"1.5rem","space-2xl":"3rem","space-xs":"0.25rem","space-md":"1rem"},fontFamily:{"headline-md":["Space Grotesk"],"metric-display-mobile":["JetBrains Mono"],"body-sm":["Inter"],"display-hero":["Space Grotesk"],"body-lg":["Inter"],"metric-display":["JetBrains Mono"],"headline-xl-mobile":["Space Grotesk"],"body-md":["Inter"],"headline-lg":["Space Grotesk"],"display-hero-mobile":["Space Grotesk"],"label-sm":["JetBrains Mono"],"label-lg":["JetBrains Mono"],"headline-sm":["Space Grotesk"],"label-md":["JetBrains Mono"],"headline-xl":["Space Grotesk"]},fontSize:{"headline-md":["22px",{lineHeight:"28px",fontWeight:"600"}],"metric-display-mobile":["24px",{lineHeight:"30px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"display-hero":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"metric-display":["32px",{lineHeight:"38px",letterSpacing:"-0.03em",fontWeight:"700"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-lg":["28px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"600"}],"display-hero-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"18px",letterSpacing:"-0.01em",fontWeight:"500"}],"headline-sm":["18px",{lineHeight:"24px",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",fontWeight:"500"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col justify-between selection:bg-secondary selection:text-on-secondary"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="Brand logo. - Primary color: #0f172a
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VVW-ffahGR-hIR5uHx8bGCDDWVhtlsvmvGMtOc8G1e9onYpaJ52IeUOp-zi251agdO2jwSP9lDdDzQ8dCm-BYzwy9VH6vI7mJGUc8b2VF8IC7ASwuiwK8IefR9KWHrZlYm9c_HsQ_uTyldnJ-1ovVHp9aLrAb2_D4qImUfXd2y772udwquc60Oe--R-sytZ1RoCuQnTMSLTz62MK5p9zhedj5asNOD0JpvKnBmkmHb9m73WlWiUAC7Ds7N"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Apex Energy Telemetry</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">SME Sri Lanka Plant Engine</span></div><div class="hidden lg:flex items-center ml-space-md pl-space-md border-l border-outline-variant/40"><div class="flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container rounded-DEFAULT"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="font-label-sm text-label-sm text-on-surface uppercase tracking-wide">CEB Tariff TOD Certified</span></div></div></div><div class="flex items-center gap-space-lg"><nav class="hidden md:flex items-center gap-space-lg" data-active-classes="text-on-surface font-semibold"><a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" data-path="portal-access" href="#">Access Portal</a><a aria-current="page" class="transition-colors text-on-surface font-semibold" data-path="plant-onboarding" href="#">Facility Setup</a><a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" data-path="grid-compliance" href="#">CEB Tariffs</a><a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" data-path="technical-support" href="#">Grid Support</a></nav><div class="flex items-center gap-space-sm border-l border-outline-variant/40 pl-space-md"><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low rounded-DEFAULT text-on-surface-variant"><span class="font-label-sm text-label-sm uppercase">EN / LKR</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-16 bg-surface flex-grow flex flex-col justify-center"><div class="flex flex-col w-full">
+<div class="max-w-6xl mx-auto w-full px-margin-md md:px-margin-lg py-space-xl">
+<!-- Top System Verification Banner -->
+<div class="mb-space-lg flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-lg shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex h-2.5 w-2.5 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface">CEB Tariff Schedule I-2 / I-3 Regulated Telemetry</span>
+<span class="text-outline-variant text-[12px]">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sri Lanka Apparel Exporters Alliance Node: BOI Katunayake / Biyagama EPZ</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm text-secondary font-semibold bg-secondary-fixed/40 px-space-sm py-space-2xs rounded-DEFAULT">
+          DAY OFF-PEAK ACTIVE (LKR 34.00/kWh)
+        </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Next Peak Window: 18:30 IST</span>
+</div>
+</div>
+<!-- Main Two-Column Split Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start">
+<!-- LEFT COLUMN: Brand Anchor, System Benefits & Industrial Floor Schema -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Brand Header Unit -->
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm">
+<div class="flex items-center gap-space-sm mb-space-md">
+<span class="px-space-sm py-space-2xs bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wide rounded-DEFAULT flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+              LK SME Energy Portal
+            </span>
+<span class="text-outline-variant font-label-sm text-label-sm">v4.18-SCADA</span>
+</div>
+<div class="flex items-start gap-space-md mb-space-md">
+<img alt="Apex Energy Telemetry Engine Icon" class="w-14 h-14 rounded-lg object-contain bg-primary-container p-1 shadow-sm" src="https://lh3.googleusercontent.com/aida/AEtjO1VVW-ffahGR-hIR5uHx8bGCDDWVhtlsvmvGMtOc8G1e9onYpaJ52IeUOp-zi251agdO2jwSP9lDdDzQ8dCm-BYzwy9VH6vI7mJGUc8b2VF8IC7ASwuiwK8IefR9KWHrZlYm9c_HsQ_uTyldnJ-1ovVHp9aLrAb2_D4qImUfXd2y772udwquc60Oe--R-sytZ1RoCuQnTMSLTz62MK5p9zhedj5asNOD0JpvKnBmkmHb9m73WlWiUAC7Ds7N"/>
+<div class="flex flex-col">
+<h1 class="font-headline-md text-headline-md text-on-surface leading-tight">
+                Energy Optimization for SME Garment Factory
+              </h1>
+<p class="font-label-md text-label-md text-secondary mt-space-2xs">
+                Dedicated Facility Manager Registration
+              </p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Engineered for Sri Lankan apparel production houses to automate load balancing, suppress kVA penalties, and maintain seam quotas under Ceylon Electricity Board Time-of-Day schedules.
+          </p>
+</div>
+<!-- Key Operational Value Props -->
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm space-y-space-md">
+<div class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant flex items-center justify-between pb-space-xs">
+<span>Core Telemetry Capabilities</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">tune</span>
+</div>
+<!-- Prop 1 -->
+<div class="flex items-start gap-space-md bg-surface-container-low p-space-sm rounded-DEFAULT">
+<div class="w-9 h-9 rounded-DEFAULT bg-surface-container-high flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Optimize Machine Schedules</span>
+<span class="font-label-sm text-label-sm bg-secondary-fixed/50 text-on-secondary-fixed-variant px-space-xs rounded-DEFAULT">18:30–22:30 Safeguard</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Automatically divert heavy cutting tables, fusing presses, and wash-house boilers prior to CEB high-tariff surge windows.
+              </p>
+</div>
+</div>
+<!-- Prop 2 -->
+<div class="flex items-start gap-space-md bg-surface-container-low p-space-sm rounded-DEFAULT">
+<div class="w-9 h-9 rounded-DEFAULT bg-surface-container-high flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[20px]">trending_down</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Reduce Electricity Costs</span>
+<span class="font-label-sm text-label-sm bg-secondary-fixed/50 text-on-secondary-fixed-variant px-space-xs rounded-DEFAULT">-22% kVA Base</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Prevent maximum demand surcharge thresholds with real-time sub-meter telemetry and smart generator auto-cycling.
+              </p>
+</div>
+</div>
+<!-- Prop 3 -->
+<div class="flex items-start gap-space-md bg-surface-container-low p-space-sm rounded-DEFAULT">
+<div class="w-9 h-9 rounded-DEFAULT bg-surface-container-high flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[20px]">precision_manufacturing</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Maintain Production Line Flow</span>
+<span class="font-label-sm text-label-sm bg-secondary-fixed/50 text-on-secondary-fixed-variant px-space-xs rounded-DEFAULT">100% On-Time</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Ensure zero downtime across active sewing clusters during load shifting without breaching global buyer delivery lead times.
+              </p>
+</div>
+</div>
+</div>
+<!-- Garment Floor Energy Distribution Schema -->
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Active Load Balance Routing</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">TOD LEVEL: OPTIMAL</span>
+</div>
+<!-- Interactive Micro Plant Schema -->
+<div class="grid grid-cols-4 gap-space-xs text-center font-label-sm text-label-sm">
+<div class="bg-surface-container-high p-space-xs rounded-DEFAULT flex flex-col items-center">
+<span class="text-on-surface font-semibold">01 CUT</span>
+<span class="text-secondary font-mono text-[10px] mt-1">42 kW</span>
+<span class="w-full bg-secondary h-1 mt-1 rounded-full"></span>
+</div>
+<div class="bg-surface-container-high p-space-xs rounded-DEFAULT flex flex-col items-center">
+<span class="text-on-surface font-semibold">02 SEW</span>
+<span class="text-secondary font-mono text-[10px] mt-1">118 kW</span>
+<span class="w-full bg-secondary h-1 mt-1 rounded-full"></span>
+</div>
+<div class="bg-surface-container-high p-space-xs rounded-DEFAULT flex flex-col items-center">
+<span class="text-on-surface font-semibold">03 FINISH</span>
+<span class="text-secondary font-mono text-[10px] mt-1">68 kW</span>
+<span class="w-full bg-secondary h-1 mt-1 rounded-full"></span>
+</div>
+<div class="bg-surface-container-high p-space-xs rounded-DEFAULT flex flex-col items-center">
+<span class="text-on-surface font-semibold">04 BOILER</span>
+<span class="text-error font-mono text-[10px] mt-1">LOAD SHIFT</span>
+<span class="w-full bg-error h-1 mt-1 rounded-full"></span>
+</div>
+</div>
+</div>
+<!-- Trust & Security Credentials -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">verified</span>
+<span>CEB &amp; LECO Class-A Meter Protocol Standard Certified</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">lock</span>
+<span>256-Bit SCADA Telemetry Encryption (Plant Local Isolation)</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">domain</span>
+<span>Single-Tenant Dedicated Partitioning per Facility</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: High-Fidelity Multi-Section Registration Form -->
+<div class="lg:col-span-7">
+<div class="bg-surface-container-lowest p-space-lg md:p-space-xl rounded-lg shadow-md flex flex-col">
+<!-- Card Header & Progress Marker -->
+<div class="flex items-start justify-between pb-space-md border-b border-surface-container">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold">New Plant Enrollment</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mt-space-2xs">Create Your Factory Account</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-2xs">
+                Set up your administrative credentials and plant load parameters.
+              </p>
+</div>
+<div class="hidden sm:flex flex-col items-end">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Step 1 of 2</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Manager &amp; Plant Profile</span>
+</div>
+</div>
+<!-- Interactive State Switcher (Demo Simulator) -->
+<div class="my-space-md bg-surface-container-low p-space-xs rounded-DEFAULT flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="px-space-xs font-semibold uppercase text-[11px] text-on-surface">UI State Preview:</span>
+<div class="flex gap-space-xs">
+<button class="px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface rounded-DEFAULT shadow-xs font-medium transition-colors" id="state-normal-btn" type="button">Normal</button>
+<button class="px-space-sm py-space-2xs hover:bg-surface-container-lowest text-on-surface-variant rounded-DEFAULT transition-colors" id="state-error-btn" type="button">Validation Errors</button>
+<button class="px-space-sm py-space-2xs hover:bg-surface-container-lowest text-on-surface-variant rounded-DEFAULT transition-colors" id="state-loading-btn" type="button">Submitting State</button>
+</div>
+</div>
+<!-- Alert Container for dynamic JS messages -->
+<div class="hidden mb-space-md p-space-md bg-error-container text-on-error-container rounded-DEFAULT font-body-sm text-body-sm flex items-start gap-space-sm" id="form-alert-container">
+<span class="material-symbols-outlined text-[20px] shrink-0 text-error">error</span>
+<div class="flex flex-col">
+<span class="font-semibold">Plant Verification Failed</span>
+<span id="form-alert-text">Please resolve the marked discrepancies in factory location and password confirmation below.</span>
+</div>
+</div>
+<!-- SUCCESS TOAST (Initially hidden) -->
+<div class="hidden mb-space-md p-space-md bg-secondary-fixed text-on-secondary-fixed-variant rounded-DEFAULT font-body-sm text-body-sm flex items-start gap-space-sm" id="form-success-container">
+<span class="material-symbols-outlined text-[20px] shrink-0 text-secondary">check_circle</span>
+<div class="flex flex-col">
+<span class="font-semibold">Plant Registration Telemetry Ready</span>
+<span>Account initialized. Generating CEB meter authorization token for Colombo South Grid...</span>
+</div>
+</div>
+<!-- FORM START -->
+<form class="space-y-space-lg" id="signup-form" onsubmit="event.preventDefault(); return false;">
+<!-- SECTION 1: Factory Manager Details -->
+<div class="space-y-space-md">
+<div class="flex items-center gap-space-sm pb-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-DEFAULT">
+<span class="material-symbols-outlined text-secondary text-[18px]">badge</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wide">Section 1: Factory Manager Details</span>
+</div>
+<!-- Full Name -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface flex items-center justify-between" for="mgr-name">
+<span>Full Name <span class="text-error">*</span></span>
+<span class="text-on-surface-variant font-normal">Primary Plant Authority</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="mgr-name" placeholder="Enter your full name (e.g., Kavinda Wickramasinghe)" required="" type="text"/>
+</div>
+<span class="hidden text-error font-label-sm text-label-sm mt-0.5" id="err-name">Manager name is mandatory for facility log audits.</span>
+</div>
+<!-- Email & Phone Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Email -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface" for="mgr-email">
+                    Corporate Email Address <span class="text-error">*</span>
+</label>
+<input class="w-full h-10 px-space-md bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="mgr-email" placeholder="kavinda@hirdaramani-apparel.lk" required="" type="email"/>
+<span class="hidden text-error font-label-sm text-label-sm mt-0.5" id="err-email">Valid factory corporate email required.</span>
+</div>
+<!-- Phone -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface" for="mgr-phone">
+                    Contact Number (Sri Lanka) <span class="text-error">*</span>
+</label>
+<div class="flex">
+<span class="inline-flex items-center px-space-sm bg-surface-container text-on-surface-variant font-label-sm text-label-sm rounded-l-DEFAULT border border-r-0 border-outline-variant/60">
+                      +94
+                    </span>
+<input class="w-full h-10 px-space-md bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-r-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="mgr-phone" placeholder="77 123 4567" required="" type="tel"/>
+</div>
+<span class="hidden text-error font-label-sm text-label-sm mt-0.5" id="err-phone">Requires 9-digit LK operator number.</span>
+</div>
+</div>
+<!-- Password Fields Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Password -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface flex items-center justify-between" for="mgr-pwd">
+<span>Create Password <span class="text-error">*</span></span>
+</label>
+<div class="relative">
+<input class="w-full h-10 pl-space-md pr-10 bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="mgr-pwd" placeholder="Create strong password" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-space-sm text-on-surface-variant hover:text-on-surface" onclick="togglePasswordVisibility('mgr-pwd', 'eye-pwd')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="eye-pwd">visibility</span>
+</button>
+</div>
+</div>
+<!-- Confirm Password -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface flex items-center justify-between" for="mgr-confirm-pwd">
+<span>Confirm Password <span class="text-error">*</span></span>
+</label>
+<div class="relative">
+<input class="w-full h-10 pl-space-md pr-10 bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="mgr-confirm-pwd" placeholder="Repeat chosen password" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-space-sm text-on-surface-variant hover:text-on-surface" onclick="togglePasswordVisibility('mgr-confirm-pwd', 'eye-confirm')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="eye-confirm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Password Requirement Live Visualizer -->
+<div class="bg-surface-container-low p-space-sm rounded-DEFAULT flex flex-wrap items-center justify-between gap-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline" id="chk-len">radio_button_unchecked</span>
+                  Min 8 Characters
+                </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline" id="chk-alpha">radio_button_unchecked</span>
+                  Letters &amp; Numbers Mixed
+                </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline" id="chk-match">radio_button_unchecked</span>
+                  Passwords Identical
+                </span>
+</div>
+<span class="hidden text-error font-label-sm text-label-sm" id="err-pwd-match">Passwords do not match. Please verify both entries.</span>
+</div>
+<!-- SECTION 2: Factory Information -->
+<div class="space-y-space-md pt-space-xs">
+<div class="flex items-center gap-space-sm pb-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-DEFAULT">
+<span class="material-symbols-outlined text-secondary text-[18px]">factory</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wide">Section 2: Factory Telemetry Profile</span>
+</div>
+<!-- Factory Name -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface flex items-center justify-between" for="factory-name">
+<span>Factory / Plant Designation <span class="text-error">*</span></span>
+<span class="text-on-surface-variant font-normal">BOI or SL-Customs ID Name</span>
+</label>
+<input class="w-full h-10 px-space-md bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="factory-name" placeholder="e.g., Apex Apparels Plant 02 - Biyagama Zone" required="" type="text"/>
+<span class="hidden text-error font-label-sm text-label-sm mt-0.5" id="err-factory">Factory designation is required for tariff mapping.</span>
+</div>
+<!-- Factory Location -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface flex items-center justify-between" for="factory-loc">
+<span>Plant Physical Location / Industrial Estate <span class="text-error">*</span></span>
+<span class="text-on-surface-variant font-normal">CEB Substation Feeder Zone</span>
+</label>
+<input class="w-full h-10 px-space-md bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="factory-loc" placeholder="e.g., Biyagama Export Processing Zone, Western Province" required="" type="text"/>
+<span class="hidden text-error font-label-sm text-label-sm mt-0.5" id="err-loc">Enter export zone or town council address.</span>
+</div>
+<!-- 2-Column Dropdown Selectors -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Factory Size -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface" for="factory-size">
+                    Factory Size &amp; Demand Band <span class="text-error">*</span>
+</label>
+<select class="w-full h-10 px-space-md bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="factory-size" required="">
+<option disabled="" selected="" value="">Select Factory Size</option>
+<option value="small">Small (&lt;150 Machines / &lt;100 kVA)</option>
+<option value="medium">Medium (150-500 Machines / 100-350 kVA)</option>
+<option value="large">Large (500+ Machines / &gt;350 kVA)</option>
+</select>
+<span class="hidden text-error font-label-sm text-label-sm mt-0.5" id="err-size">Specify machine volume for tariff model.</span>
+</div>
+<!-- Main Production Type -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-medium text-on-surface" for="factory-type">
+                    Main Production Category <span class="text-error">*</span>
+</label>
+<select class="w-full h-10 px-space-md bg-surface-container-lowest text-on-surface text-body-md font-body-md rounded-DEFAULT border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="factory-type" required="">
+<option disabled="" selected="" value="">Select Production Type</option>
+<option value="cut-sew">Cut &amp; Sew (Woven / Knit Garments)</option>
+<option value="knitting">Knitting &amp; Circular Weaving</option>
+<option value="finishing">Steam Press &amp; Finishing Hub</option>
+<option value="washing">Industrial Wet Processing / Laundry</option>
+<option value="other">Integrated Textile Facility</option>
+</select>
+<span class="hidden text-error font-label-sm text-label-sm mt-0.5" id="err-type">Select core line operation.</span>
+</div>
+</div>
+</div>
+<!-- PRIMARY ACTION & SUBMIT BUTTON -->
+<div class="pt-space-md space-y-space-md">
+<button class="w-full h-12 bg-secondary hover:bg-secondary/90 active:bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded-DEFAULT shadow-md flex items-center justify-center gap-space-sm transition-all focus:ring-2 focus:ring-offset-2 focus:ring-secondary cursor-pointer" id="submit-btn" onclick="handleFormSubmission()" type="button">
+<span id="submit-btn-text">Create Factory Account</span>
+<span class="material-symbols-outlined text-[20px]" id="submit-btn-icon">arrow_forward</span>
+<div class="hidden w-5 h-5 border-2 border-on-secondary border-t-transparent rounded-full animate-spin" id="submit-spinner"></div>
+</button>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant">
+                By creating an account, you agree to the 
+                <a class="underline hover:text-on-surface" href="#">Terms of Service</a>, 
+                <a class="underline hover:text-on-surface" href="#">Data Retention Charter</a>, and 
+                <a class="underline hover:text-on-surface" href="#">CEB Tariff Telemetry Governance</a>.
+              </p>
+</div>
+</form>
+<!-- FORM END -->
+<!-- FOOTER CALLOUT / LOGIN ROUTE -->
+<div class="mt-space-lg pt-space-md border-t border-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-sm bg-surface-container-low p-space-md rounded-DEFAULT">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">login</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Already configured your plant node?</span>
+</div>
+<a class="font-headline-sm text-headline-sm text-secondary hover:underline flex items-center gap-1 font-semibold" href="#">
+              Log in to your factory console
+              <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Supplementary Compliance Footnote Micro-Bar -->
+<div class="mt-space-xl p-space-md rounded-DEFAULT bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="font-bold text-on-surface">SRI LANKA SUSTAINABLE ENERGY AUTHORITY (SLSEA)</span>
+<span>•</span>
+<span>ACT NO. 35 COMPLIANT ENERGY AUDIT READY</span>
+<span>•</span>
+<span>BOI GREEN CHANNEL TELEMETRY</span>
+</div>
+<div>
+<span>Hardware gateway sync: RS-485 Modbus RTU / MQTT-TLS 1.3</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function togglePasswordVisibility(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      input.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  const pwdInput = document.getElementById('mgr-pwd');
+  const confirmPwdInput = document.getElementById('mgr-confirm-pwd');
+  const chkLen = document.getElementById('chk-len');
+  const chkAlpha = document.getElementById('chk-alpha');
+  const chkMatch = document.getElementById('chk-match');
+
+  function validateLivePassword() {
+    const val = pwdInput.value || '';
+    const confirmVal = confirmPwdInput.value || '';
+
+    // Length check
+    if (val.length >= 8) {
+      chkLen.textContent = 'check_circle';
+      chkLen.className = 'material-symbols-outlined text-[16px] text-secondary';
+    } else {
+      chkLen.textContent = 'radio_button_unchecked';
+      chkLen.className = 'material-symbols-outlined text-[16px] text-outline';
+    }
+
+    // Letters and numbers mixed
+    const hasLetters = /[a-zA-Z]/.test(val);
+    const hasNumbers = /[0-9]/.test(val);
+    if (hasLetters && hasNumbers) {
+      chkAlpha.textContent = 'check_circle';
+      chkAlpha.className = 'material-symbols-outlined text-[16px] text-secondary';
+    } else {
+      chkAlpha.textContent = 'radio_button_unchecked';
+      chkAlpha.className = 'material-symbols-outlined text-[16px] text-outline';
+    }
+
+    // Match check
+    if (val.length > 0 && confirmVal.length > 0 && val === confirmVal) {
+      chkMatch.textContent = 'check_circle';
+      chkMatch.className = 'material-symbols-outlined text-[16px] text-secondary';
+    } else {
+      chkMatch.textContent = 'radio_button_unchecked';
+      chkMatch.className = 'material-symbols-outlined text-[16px] text-outline';
+    }
+  }
+
+  if (pwdInput && confirmPwdInput) {
+    pwdInput.addEventListener('input', validateLivePassword);
+    confirmPwdInput.addEventListener('input', validateLivePassword);
+  }
+
+  // UI State Preview Helpers
+  const normalBtn = document.getElementById('state-normal-btn');
+  const errorBtn = document.getElementById('state-error-btn');
+  const loadingBtn = document.getElementById('state-loading-btn');
+  const alertContainer = document.getElementById('form-alert-container');
+  const successContainer = document.getElementById('form-success-container');
+  const submitBtnText = document.getElementById('submit-btn-text');
+  const submitBtnIcon = document.getElementById('submit-btn-icon');
+  const submitSpinner = document.getElementById('submit-spinner');
+
+  const errorIds = ['err-name', 'err-email', 'err-phone', 'err-pwd-match', 'err-factory', 'err-loc', 'err-size', 'err-type'];
+
+  function resetState() {
+    alertContainer.classList.add('hidden');
+    successContainer.classList.add('hidden');
+    errorIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    });
+    submitBtnText.textContent = 'Create Factory Account';
+    submitBtnIcon.classList.remove('hidden');
+    submitSpinner.classList.add('hidden');
+
+    normalBtn.className = 'px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface rounded-DEFAULT shadow-xs font-medium transition-colors';
+    errorBtn.className = 'px-space-sm py-space-2xs hover:bg-surface-container-lowest text-on-surface-variant rounded-DEFAULT transition-colors';
+    loadingBtn.className = 'px-space-sm py-space-2xs hover:bg-surface-container-lowest text-on-surface-variant rounded-DEFAULT transition-colors';
+  }
+
+  normalBtn.addEventListener('click', resetState);
+
+  errorBtn.addEventListener('click', () => {
+    resetState();
+    errorBtn.className = 'px-space-sm py-space-2xs bg-error text-on-error rounded-DEFAULT shadow-xs font-medium transition-colors';
+    normalBtn.className = 'px-space-sm py-space-2xs hover:bg-surface-container-lowest text-on-surface-variant rounded-DEFAULT transition-colors';
+    alertContainer.classList.remove('hidden');
+    
+    // Highlight sample validation fields
+    document.getElementById('err-name').classList.remove('hidden');
+    document.getElementById('err-email').classList.remove('hidden');
+    document.getElementById('err-pwd-match').classList.remove('hidden');
+    document.getElementById('err-loc').classList.remove('hidden');
+    document.getElementById('err-size').classList.remove('hidden');
+  });
+
+  loadingBtn.addEventListener('click', () => {
+    resetState();
+    loadingBtn.className = 'px-space-sm py-space-2xs bg-surface-container-highest text-on-surface rounded-DEFAULT shadow-xs font-medium transition-colors';
+    normalBtn.className = 'px-space-sm py-space-2xs hover:bg-surface-container-lowest text-on-surface-variant rounded-DEFAULT transition-colors';
+    submitBtnText.textContent = 'Synthesizing Plant Node...';
+    submitBtnIcon.classList.add('hidden');
+    submitSpinner.classList.remove('hidden');
+  });
+
+  function handleFormSubmission() {
+    resetState();
+    submitBtnText.textContent = 'Verifying CEB Connection...';
+    submitBtnIcon.classList.add('hidden');
+    submitSpinner.classList.remove('hidden');
+
+    setTimeout(() => {
+      submitBtnText.textContent = 'Account Created';
+      submitSpinner.classList.add('hidden');
+      submitBtnIcon.textContent = 'check';
+      submitBtnIcon.classList.remove('hidden');
+      successContainer.classList.remove('hidden');
+    }, 1200);
+  }
+</script></main><footer class="w-full bg-surface-container-lowest shadow-[0_-1px_6px_rgba(0,0,0,0.02)]"><div class="w-full px-margin-lg py-space-md flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-md text-on-surface-variant font-label-sm text-label-sm"><span>CEB INDUSTRIAL SCHEDULE I-2 &amp; I-3 COMPLIANT</span><span class="hidden sm:inline">•</span><span>GRID TELEMETRY NODE: COLOMBO SOUTH (LK-11)</span></div><div class="flex items-center gap-space-lg font-body-sm text-body-sm text-on-surface-variant"><span>© 2024 Apex Telemetry Ltd. Sri Lanka Apparel Industrial Alliance</span><a class="hover:text-on-surface transition-colors" href="#">Security &amp; Audit Logs</a><a class="hover:text-on-surface transition-colors" href="#">Factory SL-NDI Standard</a></div></div></footer></body></html>
