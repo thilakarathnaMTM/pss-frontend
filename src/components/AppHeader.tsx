@@ -103,10 +103,10 @@ export function AppHeader({ user, facilityName, facilityCode, view, setView, onS
       <div className="context-bar">
         <span><Bolt size={15} /> CEB INDUSTRIAL TARIFF (I-2 / I-3)</span>
         <i>•</i>
-        <span>TOD SOLVER v2.4</span>
+        <span>SOLVER: PuLP / CBC</span>
         <i>•</i>
         <b>FACILITY: {facilityCode}</b>
-        <strong><span className="status-dot" /> Solver: Feasible Global Optimal Found</strong>
+        <strong><span className="status-dot" /> Solver: Ready</strong>
       </div>
       {children}
 

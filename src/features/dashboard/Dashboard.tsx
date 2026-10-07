@@ -1,6 +1,7 @@
 import { BarChart3, CheckCircle2, Clock3, Sparkles, TrendingDown, Zap, ArrowRight } from 'lucide-react';
 import { Metric } from '@/components/Metric';
 import { useToast } from '@/components/ToastContext';
+import { downloadCsv } from '@/data/api';
 import type { Facility, Machine, Optimization as OptData, Tariff, View } from '@/types';
 
 type Props = {
@@ -13,9 +14,24 @@ type Props = {
 
 export function Dashboard({ machines, optimization: o, facility, tariffs, setView }: Props) {
   const { toast } = useToast();
-  const totalEnergy = machines.reduce((s, m) => s + m.quantity * m.power * m.hours, 0);
-  const totalPower = machines.reduce((s, m) => s + m.quantity * m.power, 0);
+  // Energy, cost and saving per machine come from the saved optimizer result (database).
+  const rows = machines.flatMap((m) => {
+    const slot = o.schedules?.find((x) => x.machineId === m.id);
+    return slot ? [{ m, slot, rate: slot.energy > 0 ? slot.cost / slot.energy : 0 }] : [];
+  });
+  const totalEnergy = rows.reduce((s, r) => s + r.slot.energy, 0);
+  const totalPower = machines.reduce((s, m) => s + (m.quantity * m.power) / 1000, 0);
   const costPerUnit = totalEnergy > 0 ? o.optimizedCost / totalEnergy : 0;
+  const notScheduled = machines.length - rows.length;
+
+  const exportCsv = () => {
+    if (!rows.length) { toast('Nothing to export. Run the optimization first.', 'info'); return; }
+    downloadCsv('machine-cost-breakdown.csv', [
+      ['Machine', 'Category', 'Start', 'End', 'Energy (kWh)', 'Avg rate (Rs/kWh)', 'Cost (Rs/day)', 'Saving (Rs/day)'],
+      ...rows.map(({ m, slot, rate }) => [m.name, m.category, slot.start, slot.end, slot.energy, rate.toFixed(2), slot.cost, slot.saving]),
+      ['TOTAL', '', '', '', totalEnergy.toFixed(2), costPerUnit.toFixed(2), o.optimizedCost, o.dailySaving],
+    ]);
+  };
 
   return (
     <main className="app-main">
@@ -30,7 +46,7 @@ export function Dashboard({ machines, optimization: o, facility, tariffs, setVie
       <section className="metric-grid">
         <Metric icon={<TrendingDown />} label="Current Daily Cost" value={`Rs. ${o.currentCost.toLocaleString()}`} note="Before optimization" tone="red" />
         <Metric icon={<CheckCircle2 />} label="Optimized Daily Cost" value={`Rs. ${o.optimizedCost.toLocaleString()}`} note="After schedule shift" tone="green" />
-        <Metric icon={<Sparkles />} label="Daily Saving" value={`Rs. ${o.dailySaving}`} note={`+${o.savingPercent}% reduction`} tone="green" />
+        <Metric icon={<Sparkles />} label="Daily Saving" value={`Rs. ${o.dailySaving.toLocaleString()}`} note={`+${o.savingPercent}% reduction`} tone="green" />
         <Metric icon={<BarChart3 />} label="Monthly Saving" value={`Rs. ${o.monthlySaving.toLocaleString()}`} note={`${facility.workingDays} working days`} tone="blue" />
       </section>
 
@@ -38,46 +54,44 @@ export function Dashboard({ machines, optimization: o, facility, tariffs, setVie
         <Metric icon={<Zap />} label="Total Energy" value={`${o.energy} kWh / day`} note={`${totalPower.toFixed(1)} kW installed`} tone="amber" />
         <Metric icon={<BarChart3 />} label="Cost Per Unit" value={`Rs. ${costPerUnit.toFixed(2)}/kWh`} note="Optimized average rate" tone="blue" />
         <Metric icon={<TrendingDown />} label="Cost Reduction" value={`${o.savingPercent}%`} note="Electricity cost saved" tone="green" />
-        <Metric icon={<CheckCircle2 />} label="Machines Optimized" value={`${machines.length}`} note="All machines scheduled" tone="green" />
+        <Metric icon={<CheckCircle2 />} label="Machines Optimized" value={`${rows.length} / ${machines.length}`} note={notScheduled > 0 ? `${notScheduled} not scheduled - re-run optimization` : 'All machines scheduled'} tone={notScheduled > 0 ? 'amber' : 'green'} />
       </section>
 
       <section className="table-card">
         <div className="table-head">
           <div><h2>Machine-wise Cost Breakdown <span>Daily Energy & Cost</span></h2><p>See exactly where your electricity cost comes from, machine by machine.</p></div>
-          <button className="secondary-button" onClick={() => toast('Breakdown exported as PDF.', 'success')}>Export PDF</button>
+          <button className="secondary-button" onClick={exportCsv}>Export CSV</button>
         </div>
         <div className="table-scroll">
           <table>
-            <thead><tr><th>Machine</th><th>Category</th><th>Runtime</th><th>Energy (kWh)</th><th>Rate (Rs/kWh)</th><th>Cost (Rs/day)</th><th>Saving</th></tr></thead>
+            <thead><tr><th>Machine</th><th>Category</th><th>Scheduled Run</th><th>Energy (kWh)</th><th>Avg Rate (Rs/kWh)</th><th>Cost (Rs/day)</th><th>Saving</th></tr></thead>
             <tbody>
-              {machines.map((m) => {
-                const energy = m.quantity * m.power * m.hours;
-                const cost = energy * 25;
-                return (
-                  <tr key={m.id}>
-                    <td><div className="machine-name"><div className={`machine-avatar ${m.tone}`}>{m.name.slice(0, 2).toUpperCase()}</div><div><b>{m.name}</b><small>{m.quantity} × {m.power} kW</small></div></div></td>
-                    <td><span className="category-chip">{m.category}</span></td>
-                    <td className="mono">{m.hours}h</td>
-                    <td className="mono"><b>{energy.toFixed(0)}</b></td>
-                    <td className="mono">Rs. 25</td>
-                    <td className="mono"><b>Rs. {cost.toLocaleString()}</b></td>
-                    <td className="mono">{m.saving ? <span className="green-text">Rs. {m.saving}</span> : '—'}</td>
-                  </tr>
-                );
-              })}
+              {rows.length === 0 && (
+                <tr><td colSpan={7} className="empty-row"><div className="empty-state"><b>No optimization result yet</b><p>Open the Optimization page and click Re-run.</p></div></td></tr>
+              )}
+              {rows.map(({ m, slot, rate }) => (
+                <tr key={m.id}>
+                  <td><div className="machine-name"><div className={`machine-avatar ${m.tone}`}>{m.name.slice(0, 2).toUpperCase()}</div><div><b>{m.name}</b><small>{m.quantity} × {m.power} W</small></div></div></td>
+                  <td><span className="category-chip">{m.category}</span></td>
+                  <td className="mono">{slot.start} – {slot.end}</td>
+                  <td className="mono"><b>{slot.energy.toFixed(1)}</b></td>
+                  <td className="mono">Rs. {rate.toFixed(2)}</td>
+                  <td className="mono"><b>Rs. {slot.cost.toLocaleString()}</b></td>
+                  <td className="mono">{slot.saving ? <span className="green-text">Rs. {slot.saving.toLocaleString()}</span> : '—'}</td>
+                </tr>
+              ))}
               <tr className="total-row">
                 <td><b>TOTAL</b></td><td></td><td></td>
-                <td className="mono"><b>{totalEnergy.toFixed(0)} kWh</b></td><td></td>
+                <td className="mono"><b>{totalEnergy.toFixed(1)} kWh</b></td><td className="mono">Rs. {costPerUnit.toFixed(2)}</td>
                 <td className="mono"><b>Rs. {o.optimizedCost.toLocaleString()}</b></td>
-                <td className="mono"><b className="green-text">Rs. {o.dailySaving}</b></td>
+                <td className="mono"><b className="green-text">Rs. {o.dailySaving.toLocaleString()}</b></td>
               </tr>
             </tbody>
           </table>
         </div>
         <div className="table-note">
           <CheckCircle2 size={17} />
-          <span><b>1 unit = 1 kWh</b> — Energy = Total Power × Runtime. Cost = Energy × Tariff Rate.</span>
-          <code>Day Rate: Rs. 25/kWh</code>
+          <span><b>1 unit = 1 kWh</b> — Energy = Total kW × Runtime. Cost = Σ (kW × 0.5 h × tariff rate of each half-hour).</span>
         </div>
       </section>
 

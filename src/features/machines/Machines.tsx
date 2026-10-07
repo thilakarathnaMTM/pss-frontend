@@ -8,17 +8,18 @@ import { Stepper } from '@/components/Stepper';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { useToast } from '@/components/ToastContext';
 import { createMachine, deleteMachine, updateMachine } from '@/data/api';
-import type { Machine, View } from '@/types';
+import type { Machine, Optimization, View } from '@/types';
 
 type Props = {
   machines: Machine[];
-  setMachines: (m: Machine[]) => void;
+  optimization: Optimization;
+  onChanged: () => Promise<void>;
   setView: (v: View) => void;
 };
 
 const CATEGORIES = ['Cutting', 'Sewing', 'Finishing', 'Washing', 'Packaging'];
 
-export function Machines({ machines, setMachines, setView }: Props) {
+export function Machines({ machines, optimization, onChanged, setView }: Props) {
   const { toast } = useToast();
   const [showAdd, setShowAdd] = useState(false);
   const [editTarget, setEditTarget] = useState<Machine | null>(null);
@@ -30,10 +31,12 @@ export function Machines({ machines, setMachines, setView }: Props) {
   const totalUnits = machines.reduce((s, m) => s + m.quantity, 0);
   const avgPower = totalUnits > 0 ? totalPowerW / totalUnits : 0;
 
+  const slotFor = (id: string) => optimization.schedules?.find((s) => s.machineId === id);
+
   const handleAdd = async (m: Machine) => {
     try {
       const created = await createMachine(m);
-      setMachines([...machines, created]);
+      await onChanged();
       setShowAdd(false);
       toast(`"${created.name}" added to inventory`, 'success');
     } catch (e) {
@@ -43,8 +46,8 @@ export function Machines({ machines, setMachines, setView }: Props) {
 
   const handleEdit = async (updated: Machine) => {
     try {
-      const result = await updateMachine(updated.id, updated);
-      setMachines(machines.map((m) => (m.id === result.id ? result : m)));
+      await updateMachine(updated.id, updated);
+      await onChanged();
       setEditTarget(null);
       toast(`"${updated.name}" updated successfully`, 'success');
     } catch (e) {
@@ -56,7 +59,7 @@ export function Machines({ machines, setMachines, setView }: Props) {
     if (!deleteTarget) return;
     try {
       await deleteMachine(deleteTarget.id);
-      setMachines(machines.filter((m) => m.id !== deleteTarget.id));
+      await onChanged();
       toast(`"${deleteTarget.name}" removed from inventory`, 'warning');
       setDeleteTarget(null);
     } catch (e) {
@@ -142,9 +145,15 @@ export function Machines({ machines, setMachines, setView }: Props) {
                     </td>
                     <td>
                       <span className="window-chip"><Clock3 size={13} /> {m.window}</span>
-                      <small className="green-text">Window validated</small>
+                      {slotFor(m.id)
+                        ? <small className="green-text">Runs {slotFor(m.id)!.start} – {slotFor(m.id)!.end}</small>
+                        : <small className="red-text">Window too short or outside factory hours</small>}
                     </td>
-                    <td><span className="ready-chip"><span /> Ready</span></td>
+                    <td>
+                      {slotFor(m.id)
+                        ? <span className="ready-chip"><span /> Scheduled</span>
+                        : <span className="ready-chip bad-chip"><span /> Not scheduled</span>}
+                    </td>
                     <td>
                       <div className="row-actions">
                         <button title="View details" onClick={() => setViewTarget(m)}><Eye size={15} /></button>
@@ -194,6 +203,11 @@ export function Machines({ machines, setMachines, setView }: Props) {
   );
 }
 
+const toMinutes = (t: string) => {
+  const [h, m] = t.split(':');
+  return Number(h) * 60 + Number(m ?? 0);
+};
+
 function MachineFormModal({
   mode,
   machine,
@@ -216,11 +230,21 @@ function MachineFormModal({
   const [availableEnd, setAvailableEnd] = useState(machine?.availableEnd?.slice(0, 5) ?? '17:00');
   const [tone, setTone] = useState(machine?.tone ?? 'green');
   const [nameError, setNameError] = useState(false);
+  const [windowError, setWindowError] = useState('');
   const total = quantity * power;
 
   const save = () => {
     if (!name.trim()) {
       setNameError(true);
+      return;
+    }
+    const span = toMinutes(availableEnd) - toMinutes(availableStart);
+    if (span <= 0) {
+      setWindowError('Available end must be after the start (overnight windows are not supported).');
+      return;
+    }
+    if (hours * 60 > span) {
+      setWindowError(`Required runtime (${hours} h) is longer than the window (${(span / 60).toFixed(1)} h).`);
       return;
     }
     onSave({
@@ -279,15 +303,15 @@ function MachineFormModal({
           </label>
           <label>
             Required Hours / Day
-            <input type="number" min="0.5" step="0.5" value={hours} onChange={(e) => setHours(Number(e.target.value))} />
+            <input type="number" min="0.5" step="0.5" value={hours} onChange={(e) => { setHours(Number(e.target.value)); setWindowError(''); }} />
           </label>
           <label>
             Available Start
-            <input type="time" value={availableStart} onChange={(e) => setAvailableStart(e.target.value)} />
+            <input type="time" value={availableStart} onChange={(e) => { setAvailableStart(e.target.value); setWindowError(''); }} />
           </label>
           <label>
             Available End
-            <input type="time" value={availableEnd} onChange={(e) => setAvailableEnd(e.target.value)} />
+            <input type="time" value={availableEnd} onChange={(e) => { setAvailableEnd(e.target.value); setWindowError(''); }} />
           </label>
           <label>
             Priority
@@ -306,6 +330,7 @@ function MachineFormModal({
             </select>
           </label>
         </div>
+        {windowError && <div className="field-error form-error">{windowError}</div>}
         <div className="form-summary">
           <Zap size={16} />
           <span>

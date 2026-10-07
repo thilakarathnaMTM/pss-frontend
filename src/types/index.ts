@@ -58,6 +58,15 @@ export type Machine = {
   availableEnd?: string;
 };
 
+export type ScheduleSlot = {
+  machineId: string;
+  start: string;
+  end: string;
+  energy: number;
+  cost: number;
+  saving: number;
+};
+
 export type Optimization = {
   currentCost: number;
   optimizedCost: number;
@@ -65,6 +74,8 @@ export type Optimization = {
   monthlySaving: number;
   energy: number;
   savingPercent: number;
+  schedules?: ScheduleSlot[];
+  skipped?: string[];
 };
 
 export type ReportRow = {

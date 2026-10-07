@@ -9,10 +9,10 @@ type Props = {
   facility: Facility;
   tariffs: Tariff[];
   setView: (v: View) => void;
-  onFacilityUpdate?: (f: Facility) => void;
+  onChanged: () => Promise<void>;
 };
 
-export function FactorySetup({ facility, tariffs, setView, onFacilityUpdate }: Props) {
+export function FactorySetup({ facility, tariffs, setView, onChanged }: Props) {
   const { toast } = useToast();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(facility.name);
@@ -23,7 +23,7 @@ export function FactorySetup({ facility, tariffs, setView, onFacilityUpdate }: P
 
   const handleSave = async () => {
     try {
-      const updated = await updateFactory({
+      await updateFactory({
         name,
         code,
         startTime,
@@ -33,9 +33,9 @@ export function FactorySetup({ facility, tariffs, setView, onFacilityUpdate }: P
         role: facility.role,
         tariff: facility.tariff,
       });
-      onFacilityUpdate?.(updated);
+      await onChanged();
       setEditing(false);
-      toast('Factory details updated', 'success');
+      toast('Factory details updated. Schedule recalculated.', 'success');
     } catch (e) {
       toast(e instanceof Error ? e.message : 'Failed to update factory', 'error');
     }

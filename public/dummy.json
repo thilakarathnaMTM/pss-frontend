@@ -28,7 +28,7 @@
     "role": "Plant Manager",
     "tariff": "CEB Industrial Tariff I-2 / I-3",
     "startTime": "07:00",
-    "endTime": "21:00",
+    "endTime": "23:30",
     "workingDays": 26
   },
   "tariffs": [
@@ -37,97 +37,263 @@
       "period": "Off-Peak",
       "startTime": "22:30",
       "endTime": "05:30",
-      "rate": 33
+      "rate": 33.0
     },
     {
       "id": "2",
       "period": "Day",
       "startTime": "05:30",
       "endTime": "18:30",
-      "rate": 47
+      "rate": 47.0
     },
     {
       "id": "3",
       "period": "Peak",
       "startTime": "18:30",
       "endTime": "22:30",
-      "rate": 106
+      "rate": 106.0
     }
   ],
   "machines": [
     {
-      "id": "MCH-CUT-01",
+      "id": "1",
       "name": "Fabric Cutter",
       "modelName": "Juki Cutter Pro X1",
       "category": "Cutting",
       "quantity": 2,
-      "power": 4000,
-      "hours": 3,
-      "window": "08:00 AM – 06:00 PM",
+      "power": 4000.0,
+      "hours": 3.0,
+      "window": "08:00 AM – 10:00 PM",
       "priority": "High",
-      "saving": 0,
-      "tone": "blue"
+      "saving": 0.0,
+      "tone": "blue",
+      "availableStart": "08:00:00",
+      "availableEnd": "22:00:00"
     },
     {
-      "id": "MCH-SEW-01",
+      "id": "2",
       "name": "Sewing Machine Line",
       "modelName": "Brother Industrial S-7200",
       "category": "Sewing",
       "quantity": 10,
-      "power": 500,
-      "hours": 8,
+      "power": 500.0,
+      "hours": 8.0,
       "window": "08:00 AM – 05:00 PM",
       "priority": "High",
-      "saving": 0,
-      "tone": "green"
+      "saving": 0.0,
+      "tone": "green",
+      "availableStart": "08:00:00",
+      "availableEnd": "17:00:00"
     },
     {
-      "id": "MCH-OVL-01",
+      "id": "3",
       "name": "Overlock Machine",
       "modelName": "Pegasus M700",
       "category": "Finishing",
       "quantity": 4,
-      "power": 750,
-      "hours": 6,
-      "window": "08:00 AM – 06:00 PM",
+      "power": 750.0,
+      "hours": 6.0,
+      "window": "08:00 AM – 10:00 PM",
       "priority": "Medium",
-      "saving": 0,
-      "tone": "amber"
+      "saving": 0.0,
+      "tone": "amber",
+      "availableStart": "08:00:00",
+      "availableEnd": "22:00:00"
     },
     {
-      "id": "MCH-IRN-01",
+      "id": "4",
       "name": "Steam Iron Station",
       "modelName": "Veit 8941",
       "category": "Finishing",
       "quantity": 3,
-      "power": 2200,
-      "hours": 4,
+      "power": 2200.0,
+      "hours": 4.0,
       "window": "09:00 AM – 06:00 PM",
       "priority": "Medium",
-      "saving": 0,
-      "tone": "blue"
+      "saving": 0.0,
+      "tone": "blue",
+      "availableStart": "09:00:00",
+      "availableEnd": "18:00:00"
     },
     {
-      "id": "MCH-WSH-01",
+      "id": "5",
       "name": "Washing Unit",
       "modelName": "Tolkar Smartwash",
       "category": "Washing",
       "quantity": 1,
-      "power": 5500,
-      "hours": 2,
-      "window": "07:00 AM – 08:00 PM",
+      "power": 5500.0,
+      "hours": 2.0,
+      "window": "06:30 PM – 11:30 PM",
       "priority": "Low",
-      "saving": 0,
-      "tone": "green"
+      "saving": 401.5,
+      "tone": "green",
+      "availableStart": "18:30:00",
+      "availableEnd": "23:30:00"
     }
   ],
   "optimization": {
-    "currentCost": 0,
-    "optimizedCost": 0,
-    "dailySaving": 0,
-    "monthlySaving": 0,
-    "energy": 0,
-    "savingPercent": 0
+    "currentCost": 6260.8,
+    "optimizedCost": 5859.3,
+    "dailySaving": 401.5,
+    "monthlySaving": 10439.0,
+    "energy": 119.4,
+    "savingPercent": 6.41,
+    "schedules": [
+      {
+        "machineId": "1",
+        "start": "08:00",
+        "end": "11:00",
+        "energy": 24.0,
+        "cost": 1128.0,
+        "saving": 0.0
+      },
+      {
+        "machineId": "2",
+        "start": "08:00",
+        "end": "16:00",
+        "energy": 40.0,
+        "cost": 1880.0,
+        "saving": 0.0
+      },
+      {
+        "machineId": "3",
+        "start": "08:00",
+        "end": "14:00",
+        "energy": 18.0,
+        "cost": 846.0,
+        "saving": 0.0
+      },
+      {
+        "machineId": "4",
+        "start": "09:00",
+        "end": "13:00",
+        "energy": 26.4,
+        "cost": 1240.8,
+        "saving": 0.0
+      },
+      {
+        "machineId": "5",
+        "start": "21:30",
+        "end": "23:30",
+        "energy": 11.0,
+        "cost": 764.5,
+        "saving": 401.5
+      }
+    ],
+    "skipped": []
   },
-  "reports": []
+  "reports": [
+    {
+      "id": "1",
+      "date": "2026-10-06",
+      "currentCost": 6260.8,
+      "optimizedCost": 5859.3,
+      "saving": 401.5,
+      "energy": 119.4
+    },
+    {
+      "id": "2",
+      "date": "2026-10-05",
+      "currentCost": 6072.98,
+      "optimizedCost": 5683.52,
+      "saving": 389.46,
+      "energy": 115.82
+    },
+    {
+      "id": "3",
+      "date": "2026-10-03",
+      "currentCost": 6448.62,
+      "optimizedCost": 6035.08,
+      "saving": 413.54,
+      "energy": 122.98
+    },
+    {
+      "id": "4",
+      "date": "2026-10-02",
+      "currentCost": 5947.76,
+      "optimizedCost": 5566.34,
+      "saving": 381.42,
+      "energy": 113.43
+    },
+    {
+      "id": "5",
+      "date": "2026-10-01",
+      "currentCost": 6386.02,
+      "optimizedCost": 5976.49,
+      "saving": 409.53,
+      "energy": 121.79
+    },
+    {
+      "id": "6",
+      "date": "2026-09-30",
+      "currentCost": 5634.72,
+      "optimizedCost": 5273.37,
+      "saving": 361.35,
+      "energy": 107.46
+    },
+    {
+      "id": "7",
+      "date": "2026-09-29",
+      "currentCost": 6511.23,
+      "optimizedCost": 6093.67,
+      "saving": 417.56,
+      "energy": 124.18
+    },
+    {
+      "id": "8",
+      "date": "2026-09-28",
+      "currentCost": 6135.58,
+      "optimizedCost": 5742.11,
+      "saving": 393.47,
+      "energy": 117.01
+    },
+    {
+      "id": "9",
+      "date": "2026-09-26",
+      "currentCost": 6323.41,
+      "optimizedCost": 5917.89,
+      "saving": 405.52,
+      "energy": 120.59
+    },
+    {
+      "id": "10",
+      "date": "2026-09-25",
+      "currentCost": 5885.15,
+      "optimizedCost": 5507.74,
+      "saving": 377.41,
+      "energy": 112.24
+    },
+    {
+      "id": "11",
+      "date": "2026-09-24",
+      "currentCost": 6573.84,
+      "optimizedCost": 6152.27,
+      "saving": 421.57,
+      "energy": 125.37
+    },
+    {
+      "id": "12",
+      "date": "2026-09-23",
+      "currentCost": 6010.37,
+      "optimizedCost": 5624.93,
+      "saving": 385.44,
+      "energy": 114.62
+    },
+    {
+      "id": "13",
+      "date": "2026-09-22",
+      "currentCost": 6260.8,
+      "optimizedCost": 5859.3,
+      "saving": 401.5,
+      "energy": 119.4
+    },
+    {
+      "id": "14",
+      "date": "2026-09-21",
+      "currentCost": 6198.19,
+      "optimizedCost": 5800.71,
+      "saving": 397.48,
+      "energy": 118.21
+    }
+  ]
 }

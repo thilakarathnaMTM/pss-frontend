@@ -1,6 +1,7 @@
 import { BarChart3, Download, TrendingDown } from 'lucide-react';
 import { Metric } from '@/components/Metric';
 import { useToast } from '@/components/ToastContext';
+import { downloadCsv } from '@/data/api';
 import type { ReportRow, View } from '@/types';
 
 type Props = {
@@ -19,6 +20,28 @@ export function Reports({ reports, setView }: Props) {
     ? reports.reduce((s, r) => s + (r.currentCost > 0 ? (r.saving / r.currentCost) * 100 : 0), 0) / count
     : 0;
 
+  const exportAll = () => {
+    if (!count) { toast('No reports to export yet. Run optimization first.', 'info'); return; }
+    downloadCsv('energy-reports.csv', [
+      ['Date', 'Current cost (Rs)', 'Optimized cost (Rs)', 'Saving (Rs)', 'Energy (kWh)'],
+      ...reports.map((r) => [r.date, r.currentCost, r.optimizedCost, r.saving, r.energy]),
+    ]);
+  };
+
+  const monthlySummary = () => {
+    if (!count) { toast('Need at least one daily report first.', 'info'); return; }
+    const byMonth = new Map<string, { days: number; current: number; optimized: number; saving: number; energy: number }>();
+    reports.forEach((r) => {
+      const key = r.date.slice(0, 7);
+      const m = byMonth.get(key) ?? { days: 0, current: 0, optimized: 0, saving: 0, energy: 0 };
+      byMonth.set(key, { days: m.days + 1, current: m.current + r.currentCost, optimized: m.optimized + r.optimizedCost, saving: m.saving + r.saving, energy: m.energy + r.energy });
+    });
+    downloadCsv('monthly-summary.csv', [
+      ['Month', 'Days', 'Current cost (Rs)', 'Optimized cost (Rs)', 'Saving (Rs)', 'Energy (kWh)'],
+      ...[...byMonth.entries()].sort().map(([k, v]) => [k, v.days, v.current.toFixed(2), v.optimized.toFixed(2), v.saving.toFixed(2), v.energy.toFixed(2)]),
+    ]);
+  };
+
   return (
     <main className="app-main">
       <section className="page-intro">
@@ -27,7 +50,7 @@ export function Reports({ reports, setView }: Props) {
           <h1>Energy Reports</h1>
           <p>Daily and monthly electricity cost tracking, savings history, and energy consumption trends.</p>
         </div>
-        <button className="secondary-button" onClick={() => toast(count ? 'Full report exported as CSV.' : 'No reports to export yet. Run optimization first.', count ? 'success' : 'info')}>
+        <button className="secondary-button" onClick={exportAll}>
           <Download size={16} /> Export All
         </button>
       </section>
@@ -65,7 +88,7 @@ export function Reports({ reports, setView }: Props) {
                     <div className="empty-state">
                       <BarChart3 size={32} />
                       <b>No report history yet</b>
-                      <p>Run optimization from the Optimization page to generate today&apos;s cost report. Seeded history appears after a fresh database start.</p>
+                      <p>Run optimization from the Optimization page to generate today&apos;s cost report.</p>
                     </div>
                   </td>
                 </tr>
@@ -102,7 +125,7 @@ export function Reports({ reports, setView }: Props) {
       <div className="bottom-actions">
         <span><span className="status-dot" /> {count} daily reports available</span>
         <button className="secondary-button" onClick={() => setView('dashboard')}>Back to Dashboard</button>
-        <button className="primary-button" onClick={() => toast(count ? 'Monthly summary generated.' : 'Need at least one daily report first.', count ? 'success' : 'info')}>
+        <button className="primary-button" onClick={monthlySummary}>
           <Download size={16} /> Generate Monthly Summary
         </button>
       </div>

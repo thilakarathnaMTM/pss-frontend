@@ -1,15 +1,29 @@
-import type { Machine, PortalData, ProfileUpdateInput, SignupInput, User } from '@/types';
+import { computeOptimization } from '@/data/optimizer';
+import type { Machine, PortalData, ProfileUpdateInput, ScheduleSlot, SignupInput, User } from '@/types';
 
 const API_BASE_URL = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 const DUMMY_DATA_URL = '/dummy.json';
-const DUMMY_STORAGE_KEY = 'apex-energy-dummy-data';
+const DUMMY_STORAGE_KEY = 'apex-energy-dummy-data-v2';
 const TOKEN_STORAGE_KEY = 'apex-energy-token';
 let cache: PortalData | null = null;
 
-export const isBackendMode = Boolean(API_BASE_URL);
+// The app talks to the FastAPI backend when it is reachable. If VITE_API_URL is
+// missing or the server is down, it falls back to the sample data in /dummy.json.
+let backendReachable: Promise<boolean> | null = null;
+
+export function isBackendMode(): Promise<boolean> {
+  if (!API_BASE_URL) return Promise.resolve(false);
+  // Any HTTP response means the server is up (errors are then shown, not hidden by demo data).
+  // Only a network failure counts as "offline"; that result is not cached so the next call retries.
+  backendReachable ??= fetch(`${API_BASE_URL}/`, { signal: AbortSignal.timeout(3000) })
+    .then(() => true)
+    .catch(() => { backendReachable = null; return false; });
+  return backendReachable;
+}
 
 export function clearAuthToken() {
   localStorage.removeItem(TOKEN_STORAGE_KEY);
+  cache = null;
 }
 
 function getAuthHeaders(): HeadersInit {
@@ -22,10 +36,19 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     ...options,
     headers: { 'Content-Type': 'application/json', ...getAuthHeaders(), ...(options?.headers ?? {}) },
   });
+  if (response.status === 401) {
+    // Session expired or token invalid: go back to the login screen.
+    clearAuthToken();
+    localStorage.removeItem('apex-energy-user');
+    window.location.reload();
+  }
   if (!response.ok) {
-    const body = await response.json().catch(() => null) as { detail?: string; message?: string } | null;
+    const body = await response.json().catch(() => null) as { detail?: unknown; message?: string } | null;
     const detail = body?.detail;
-    const message = typeof detail === 'string' ? detail : body?.message ?? `Request failed with status ${response.status}.`;
+    const first = Array.isArray(detail) ? (detail[0] as { msg?: string } | undefined)?.msg : undefined;
+    const message = typeof detail === 'string' ? detail
+      : first ? first.replace(/^Value error, /, '')
+      : body?.message ?? `Request failed with status ${response.status}.`;
     throw new Error(message);
   }
   return response.status === 204 ? (undefined as T) : await response.json() as T;
@@ -39,6 +62,17 @@ async function getDummyData(): Promise<PortalData> {
   const data = await response.json() as PortalData;
   localStorage.setItem(DUMMY_STORAGE_KEY, JSON.stringify(data));
   return data;
+}
+
+// Demo mode: recompute the schedule from the current machines so the pages stay consistent.
+function saveDemoWithOptimization(data: PortalData) {
+  data.optimization = computeOptimization(data.machines, data.tariffs, data.facility);
+  saveDummyData(data);
+}
+
+export async function refreshData(): Promise<PortalData> {
+  cache = null;
+  return fetchData();
 }
 
 function saveDummyData(data: PortalData) {
@@ -90,6 +124,18 @@ type BackendMachine = {
   color: string;
   saving?: number;
 };
+
+function mapSchedules(raw: unknown): ScheduleSlot[] {
+  if (!Array.isArray(raw)) return [];
+  return (raw as Array<Record<string, unknown>>).map((s) => ({
+    machineId: String(s.machine_id ?? ''),
+    start: String(s.scheduled_start ?? '').slice(0, 5),
+    end: String(s.scheduled_end ?? '').slice(0, 5),
+    energy: Number(s.energy_kwh ?? 0),
+    cost: Number(s.cost ?? 0),
+    saving: Number(s.saving ?? 0),
+  }));
+}
 
 function formatWindow(start: string, end: string): string {
   const fmt = (t: string) => {
@@ -144,7 +190,7 @@ function mapMachineToBackend(m: Partial<Machine> & { available_start?: string; a
 
 export async function fetchData(): Promise<PortalData> {
   if (cache) return cache;
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     const [facilityRaw, machinesRaw, tariffsRaw, dashboardRaw, meRaw, reportsRaw] = await Promise.all([
       request<Record<string, unknown>>('/api/v1/factories/me'),
       request<BackendMachine[]>('/api/v1/machines'),
@@ -180,6 +226,8 @@ export async function fetchData(): Promise<PortalData> {
       monthlySaving: Number(dashboardRaw.monthly_saving ?? 0),
       energy: Number(dashboardRaw.total_energy_kwh ?? 0),
       savingPercent: Number(dashboardRaw.saving_percentage ?? 0),
+      schedules: mapSchedules(dashboardRaw.schedules),
+      skipped: Array.isArray(dashboardRaw.skipped_machines) ? (dashboardRaw.skipped_machines as string[]) : [],
     };
 
     const reportList = Array.isArray(reportsRaw.reports) ? reportsRaw.reports as Array<Record<string, unknown>> : [];
@@ -207,7 +255,8 @@ export async function fetchData(): Promise<PortalData> {
 }
 
 export async function authenticate(email: string, password: string): Promise<User | null> {
-  if (isBackendMode) {
+  cache = null;
+  if (await isBackendMode()) {
     const formData = new URLSearchParams();
     formData.append('username', email);
     formData.append('password', password);
@@ -258,7 +307,7 @@ export async function authenticate(email: string, password: string): Promise<Use
 }
 
 export async function signup(input: SignupInput): Promise<User> {
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     const payload = await request<unknown>('/api/v1/auth/signup', {
       method: 'POST',
       body: JSON.stringify({
@@ -303,7 +352,7 @@ export async function signup(input: SignupInput): Promise<User> {
 }
 
 export async function updateProfile(input: ProfileUpdateInput): Promise<User> {
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     const body: Record<string, unknown> = {};
     if (input.name !== undefined) body.name = input.name;
     if (input.phone !== undefined) body.phone = input.phone;
@@ -333,7 +382,7 @@ export async function updateProfile(input: ProfileUpdateInput): Promise<User> {
 }
 
 export async function createMachine(machine: Omit<Machine, 'id'>): Promise<Machine> {
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     const body = mapMachineToBackend({
       ...machine,
       available_start: machine.availableStart
@@ -353,12 +402,12 @@ export async function createMachine(machine: Omit<Machine, 'id'>): Promise<Machi
   const data = await fetchData();
   const created = { ...machine, id: `MCH-${Date.now()}` };
   data.machines.push(created);
-  saveDummyData(data);
+  saveDemoWithOptimization(data);
   return created;
 }
 
 export async function updateMachine(id: string, machine: Partial<Machine>): Promise<Machine> {
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     const body = mapMachineToBackend(machine);
     const updated = await request<BackendMachine>(`/api/v1/machines/${encodeURIComponent(id)}`, {
       method: 'PUT',
@@ -371,23 +420,23 @@ export async function updateMachine(id: string, machine: Partial<Machine>): Prom
   const index = data.machines.findIndex((item) => item.id === id);
   if (index < 0) throw new Error('Machine not found.');
   data.machines[index] = { ...data.machines[index], ...machine };
-  saveDummyData(data);
+  saveDemoWithOptimization(data);
   return data.machines[index];
 }
 
 export async function deleteMachine(id: string): Promise<void> {
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     await request<void>(`/api/v1/machines/${encodeURIComponent(id)}`, { method: 'DELETE' });
     cache = null;
     return;
   }
   const data = await fetchData();
   data.machines = data.machines.filter((item) => item.id !== id);
-  saveDummyData(data);
+  saveDemoWithOptimization(data);
 }
 
 export async function updateFactory(factory: Partial<PortalData['facility']>): Promise<PortalData['facility']> {
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     const body: Record<string, unknown> = {};
     if (factory.name !== undefined) body.name = factory.name;
     if (factory.code !== undefined) body.code = factory.code;
@@ -417,12 +466,12 @@ export async function updateFactory(factory: Partial<PortalData['facility']>): P
   }
   const data = await fetchData();
   data.facility = { ...data.facility, ...factory };
-  saveDummyData(data);
+  saveDemoWithOptimization(data);
   return data.facility;
 }
 
 export async function runOptimization(): Promise<PortalData['optimization']> {
-  if (isBackendMode) {
+  if (await isBackendMode()) {
     const result = await request<Record<string, unknown>>('/api/v1/optimize', {
       method: 'POST',
       body: JSON.stringify({}),
@@ -435,13 +484,21 @@ export async function runOptimization(): Promise<PortalData['optimization']> {
       monthlySaving: Number(result.monthly_saving ?? 0),
       energy: Number(result.total_energy_kwh ?? 0),
       savingPercent: Number(result.saving_percentage ?? 0),
+      schedules: mapSchedules(result.schedules),
+      skipped: Array.isArray(result.skipped_machines) ? (result.skipped_machines as string[]) : [],
     };
   }
-  return (await fetchData()).optimization;
+  const data = await fetchData();
+  saveDemoWithOptimization(data);
+  return data.optimization;
 }
 
-export async function getMachines() { return (await fetchData()).machines; }
-export async function getOptimization() { return (await fetchData()).optimization; }
-export async function getFacility() { return (await fetchData()).facility; }
-export async function getTariffs() { return (await fetchData()).tariffs; }
-export async function getReports() { return (await fetchData()).reports; }
+export function downloadCsv(filename: string, rows: Array<Array<string | number>>) {
+  const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Bolt } from 'lucide-react';
 import { AuthProvider, useAuth } from '@/auth/AuthContext';
 import { ToastProvider } from '@/components/ToastContext';
@@ -9,30 +9,32 @@ import { Machines } from '@/features/machines/Machines';
 import { Optimization } from '@/features/optimization/Optimization';
 import { Dashboard } from '@/features/dashboard/Dashboard';
 import { Reports } from '@/features/reports/Reports';
-import { fetchData } from '@/data/api';
-import type { Facility, Machine, PortalData, View } from '@/types';
+import { fetchData, isBackendMode, refreshData } from '@/data/api';
+import type { PortalData, View } from '@/types';
 
 function AppContent() {
   const { user, logout } = useAuth();
   const [data, setData] = useState<PortalData | null>(null);
-  const [machines, setMachines] = useState<Machine[]>([]);
   const [view, setView] = useState<View>('factory');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [demo, setDemo] = useState(false);
 
   useEffect(() => {
     if (!user) { setData(null); setError(null); return; }
     setLoading(true);
     setError(null);
+    isBackendMode().then((on) => setDemo(!on));
     fetchData()
-      .then((d) => { setData(d); setMachines(d.machines); })
+      .then(setData)
       .catch((e: unknown) => setError(e instanceof Error ? e.message : 'Unable to load your factory data.'))
       .finally(() => setLoading(false));
   }, [user]);
 
-  const handleFacilityUpdate = (facility: Facility) => {
-    setData((prev) => (prev ? { ...prev, facility } : prev));
-  };
+  // Re-read machines, factory, schedule and reports from the database after any change.
+  const reload = useCallback(async () => {
+    setData(await refreshData());
+  }, []);
 
   if (!user) return <Login />;
   if (loading) return <div className="loading-screen"><Bolt size={28} /><span>Loading telemetry profile</span></div>;
@@ -40,17 +42,18 @@ function AppContent() {
 
   return (
     <AppHeader user={user} facilityName={data.facility.name} facilityCode={data.facility.code} view={view} setView={setView} onSignOut={logout}>
+      {demo && <div className="demo-banner">Demo mode: backend not reachable, showing sample data from dummy.json. Changes are kept in this browser only.</div>}
       {view === 'factory' && (
         <FactorySetup
           facility={data.facility}
           tariffs={data.tariffs}
           setView={setView}
-          onFacilityUpdate={handleFacilityUpdate}
+          onChanged={reload}
         />
       )}
-      {view === 'machines' && <Machines machines={machines} setMachines={setMachines} setView={setView} />}
-      {view === 'optimization' && <Optimization machines={machines} optimization={data.optimization} setView={setView} />}
-      {view === 'dashboard' && <Dashboard machines={machines} optimization={data.optimization} facility={data.facility} tariffs={data.tariffs} setView={setView} />}
+      {view === 'machines' && <Machines machines={data.machines} optimization={data.optimization} onChanged={reload} setView={setView} />}
+      {view === 'optimization' && <Optimization machines={data.machines} optimization={data.optimization} onChanged={reload} tariffs={data.tariffs} setView={setView} />}
+      {view === 'dashboard' && <Dashboard machines={data.machines} optimization={data.optimization} facility={data.facility} tariffs={data.tariffs} setView={setView} />}
       {view === 'reports' && <Reports reports={data.reports} setView={setView} />}
     </AppHeader>
   );
