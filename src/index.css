@@ -54,4 +54,6 @@
 .grid-line{position:absolute;top:0;bottom:0;width:1px;background:#d5deeb;z-index:1}
 .track-band{z-index:0}.window-bar,.schedule-bar.bar-run{z-index:2}
 .schedule-bar.bar-run{justify-content:center}
-.bar-label-out{position:absolute;top:5px;bottom:16px;z-index:3;display:flex;align-items:center;white-space:nowrap;color:#064e47;font:600 10px 'JetBrains Mono'}
+.schedule-bar.bar-narrow{overflow:visible}
+.bar-label-out{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;color:#064e47;font:600 10px 'JetBrains Mono';pointer-events:none}
+.bar-label-out.to-right{left:100%;margin-left:8px}.bar-label-out.to-left{right:100%;margin-right:8px}

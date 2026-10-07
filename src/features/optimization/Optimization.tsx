@@ -192,28 +192,19 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
                   <div key={k} className="window-bar" style={{ left: `${w.left}%`, width: `${w.width}%` }} title={`Available ${m.window}`} />
                 ))}
                 {run.map((r, k) => {
+                  // Short runs can't fit the time inside the bar, so the label sits beside it.
+                  // It is a child of the bar, positioned relative to the bar itself, so it always lines up.
                   const label = `${fmt12(slot!.start)} – ${fmt12(slot!.end)}`;
-                  const inside = r.width > 17;
+                  const narrow = r.width <= 17;
+                  const nearEnd = r.left + r.width > 72;
                   return (
-                    <div key={k} className={`schedule-bar bar-run bar-c${i % 3}`} style={{ left: `${r.left}%`, width: `${r.width}%` }}>
-                      {k === 0 && inside ? label : ''}
+                    <div key={k} className={`schedule-bar bar-run bar-c${i % 3}${narrow ? ' bar-narrow' : ''}`} style={{ left: `${r.left}%`, width: `${r.width}%` }}>
+                      {k === 0 && (narrow
+                        ? <span className={`bar-label-out ${nearEnd ? 'to-left' : 'to-right'}`}>{label}</span>
+                        : label)}
                     </div>
                   );
                 })}
-                {run.length > 0 && run[0].width <= 17 && (() => {
-                  // Narrow bar: print the time beside it (right side, or left side near the end of the day).
-                  const label = `${fmt12(slot!.start)} – ${fmt12(slot!.end)}`;
-                  const last = run[run.length - 1];
-                  const nearEnd = last.left + last.width > 72;
-                  return (
-                    <span
-                      className="bar-label-out"
-                      style={nearEnd ? { right: `${100 - run[0].left}%`, marginRight: 8 } : { left: `${last.left + last.width}%`, marginLeft: 8 }}
-                    >
-                      {label}
-                    </span>
-                  );
-                })()}
               </div>
               <small className="window-note">Available window: {m.window}{slot ? ` • ${slot.energy} kWh • Cost Rs. ${slot.cost.toLocaleString()}${slot.saving > 0 ? ` • Saves Rs. ${slot.saving.toLocaleString()}` : ''}` : ' • runtime does not fit this window inside factory hours'}</small>
             </div>
