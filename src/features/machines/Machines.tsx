@@ -1,25 +1,29 @@
 import { useState } from 'react';
 import {
   ArrowRight, BarChart3, CheckCircle2, Clock3, Eye, Plus,
-  TrendingDown, X, Zap, Pencil, Trash2, Activity,
+  TrendingDown, X, Zap, Pencil, Trash2, Activity, Wrench, AlertTriangle, CalendarClock,
 } from 'lucide-react';
 import { Metric } from '@/components/Metric';
 import { Stepper } from '@/components/Stepper';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { useToast } from '@/components/ToastContext';
 import { createMachine, deleteMachine, updateMachine } from '@/data/api';
+import { machineHealth, type HealthStatus } from '@/data/ageing';
 import type { Machine, Optimization, View } from '@/types';
 
 type Props = {
   machines: Machine[];
   optimization: Optimization;
+  workingDays: number;
   onChanged: () => Promise<void>;
   setView: (v: View) => void;
 };
 
-const CATEGORIES = ['Cutting', 'Sewing', 'Finishing', 'Washing', 'Packaging'];
+const CURRENT_YEAR = new Date().getFullYear();
 
-export function Machines({ machines, optimization, onChanged, setView }: Props) {
+const CATEGORIES = ['Cutting', 'Sewing', 'Finishing', 'Washing', 'Embroidery', 'Packaging', 'Utilities', 'General'];
+
+export function Machines({ machines, optimization, workingDays, onChanged, setView }: Props) {
   const { toast } = useToast();
   const [showAdd, setShowAdd] = useState(false);
   const [editTarget, setEditTarget] = useState<Machine | null>(null);
@@ -80,7 +84,7 @@ export function Machines({ machines, optimization, onChanged, setView }: Props) 
 
       <section className="metric-grid">
         <Metric icon={<BarChart3 />} label="Total Machines" value={`${totalUnits} Units`} note="Across manufacturing categories" tone="blue" />
-        <Metric icon={<Zap />} label="Total Installed Power" value={`${totalPowerW.toFixed(0)} W`} note={`${(totalPowerW / 1000).toFixed(2)} kW fleet capacity`} tone="green" />
+        <Metric icon={<Zap />} label="Total Installed Power" value={`${totalPowerW.toLocaleString()} W`} note="Σ quantity × W per unit" tone="green" />
         <Metric icon={<TrendingDown />} label="Estimated Daily Energy" value={`${totalEnergy.toFixed(1)} kWh / day`} note="Qty × W × hours / 1000" tone="amber" />
         <Metric icon={<CheckCircle2 />} label="Avg Power / Unit" value={`${avgPower.toFixed(0)} W`} note={`${machines.length} machine types configured`} tone="green" />
       </section>
@@ -130,7 +134,7 @@ export function Machines({ machines, optimization, onChanged, setView }: Props) 
                         <div className={`machine-avatar ${m.tone}`}>{m.name.slice(0, 2).toUpperCase()}</div>
                         <div>
                           <b>{m.name}</b>
-                          <small>ID: {m.id} • Priority: {m.priority}</small>
+                          <small>ID: {m.id} • Priority: {m.priority} • {m.manufacturedYear ? `Mfg ${m.manufacturedYear} (${CURRENT_YEAR - m.manufacturedYear} yrs)` : 'Mfg year not set'}</small>
                         </div>
                       </div>
                     </td>
@@ -145,6 +149,7 @@ export function Machines({ machines, optimization, onChanged, setView }: Props) 
                     </td>
                     <td>
                       <span className="window-chip"><Clock3 size={13} /> {m.window}</span>
+                      <small className="table-muted">Usual start: {m.usualStart ? m.usualStart.slice(0, 5) : 'window open'}</small>
                       {slotFor(m.id)
                         ? <small className="green-text">Runs {slotFor(m.id)!.start} – {slotFor(m.id)!.end}</small>
                         : <small className="red-text">Window too short or outside factory hours</small>}
@@ -174,6 +179,8 @@ export function Machines({ machines, optimization, onChanged, setView }: Props) 
           </span>
         </div>
       </section>
+
+      <MachineHealthSection machines={machines} optimization={optimization} workingDays={workingDays} onEdit={setEditTarget} />
 
       <div className="bottom-actions">
         <span><span className="status-dot" /> {machines.length} Machines Ready for Mathematical Modeling</span>
@@ -228,6 +235,9 @@ function MachineFormModal({
   const [priority, setPriority] = useState(machine?.priority ?? 'Medium');
   const [availableStart, setAvailableStart] = useState(machine?.availableStart?.slice(0, 5) ?? '08:00');
   const [availableEnd, setAvailableEnd] = useState(machine?.availableEnd?.slice(0, 5) ?? '17:00');
+  const [usualStart, setUsualStart] = useState(machine?.usualStart?.slice(0, 5) ?? '');
+  const [manufacturedYear, setManufacturedYear] = useState<string>(machine?.manufacturedYear ? String(machine.manufacturedYear) : '');
+  const [yearError, setYearError] = useState('');
   const [tone, setTone] = useState(machine?.tone ?? 'green');
   const [nameError, setNameError] = useState(false);
   const [windowError, setWindowError] = useState('');
@@ -238,6 +248,11 @@ function MachineFormModal({
       setNameError(true);
       return;
     }
+    const year = Number(manufacturedYear);
+    if (!manufacturedYear || !Number.isInteger(year) || year < 1970 || year > CURRENT_YEAR) {
+      setYearError(`Enter the manufactured year (1970 – ${CURRENT_YEAR}).`);
+      return;
+    }
     const span = toMinutes(availableEnd) - toMinutes(availableStart);
     if (span <= 0) {
       setWindowError('Available end must be after the start (overnight windows are not supported).');
@@ -245,6 +260,10 @@ function MachineFormModal({
     }
     if (hours * 60 > span) {
       setWindowError(`Required runtime (${hours} h) is longer than the window (${(span / 60).toFixed(1)} h).`);
+      return;
+    }
+    if (usualStart && (toMinutes(usualStart) < toMinutes(availableStart) || toMinutes(usualStart) + hours * 60 > toMinutes(availableEnd))) {
+      setWindowError('Usual start must be inside the available window, with room for the full runtime.');
       return;
     }
     onSave({
@@ -261,6 +280,8 @@ function MachineFormModal({
       tone,
       availableStart,
       availableEnd,
+      usualStart,
+      manufacturedYear: year,
     });
   };
 
@@ -286,6 +307,12 @@ function MachineFormModal({
           <label>
             Model Name
             <input value={modelName} onChange={(e) => setModelName(e.target.value)} placeholder="e.g. S-7200" />
+          </label>
+          <label className={yearError ? 'has-error' : ''}>
+            Manufactured Year
+            <input type="number" min={1970} max={CURRENT_YEAR} step={1} value={manufacturedYear} placeholder={`e.g. ${CURRENT_YEAR - 3}`}
+              onChange={(e) => { setManufacturedYear(e.target.value); setYearError(''); }} />
+            {yearError && <small className="field-error">{yearError}</small>}
           </label>
           <label>
             Machine Category
@@ -314,6 +341,11 @@ function MachineFormModal({
             <input type="time" value={availableEnd} onChange={(e) => { setAvailableEnd(e.target.value); setWindowError(''); }} />
           </label>
           <label>
+            Usual Start (before app)
+            <input type="time" value={usualStart} onChange={(e) => { setUsualStart(e.target.value); setWindowError(''); }} />
+            <small className="table-muted">Optional. When this machine normally runs today; savings are measured against it.</small>
+          </label>
+          <label>
             Priority
             <select value={priority} onChange={(e) => setPriority(e.target.value)}>
               <option>High</option>
@@ -334,7 +366,7 @@ function MachineFormModal({
         <div className="form-summary">
           <Zap size={16} />
           <span>
-            Total power: <b>{total.toFixed(0)} W</b> ({(total / 1000).toFixed(2)} kW) • Est. energy:{' '}
+            Total power: <b>{total.toLocaleString()} W</b> • Est. energy:{' '}
             <b>{(total * hours / 1000).toFixed(1)} kWh/day</b>
           </span>
         </div>
@@ -380,6 +412,7 @@ function MachineViewModal({
           <div className="view-item"><label>TOTAL POWER</label><b className="mono">{totalPower.toFixed(0)} W</b></div>
           <div className="view-item"><label>RUNTIME</label><b className="mono">{(machine.hours ?? 0).toFixed(1)} hrs/day</b></div>
           <div className="view-item"><label>DAILY ENERGY</label><b className="mono">{dailyEnergy.toFixed(1)} kWh/day</b></div>
+          <div className="view-item"><label>MANUFACTURED</label><b className="mono">{machine.manufacturedYear ? `${machine.manufacturedYear} (${CURRENT_YEAR - machine.manufacturedYear} yrs)` : 'Not set'}</b></div>
           <div className="view-item view-item-wide"><label>AVAILABLE WINDOW</label><b><Clock3 size={14} /> {machine.window}</b></div>
         </div>
         <div className="modal-actions">
@@ -388,5 +421,104 @@ function MachineViewModal({
         </div>
       </div>
     </div>
+  );
+}
+
+const STATUS_LABEL: Record<HealthStatus, string> = {
+  replace: 'Replace / overhaul',
+  service: 'Service due',
+  monitor: 'Monitor',
+  good: 'Good',
+  unknown: 'Year not set',
+};
+
+function MachineHealthSection({ machines, optimization, workingDays, onEdit }: {
+  machines: Machine[];
+  optimization: Optimization;
+  workingDays: number;
+  onEdit: (m: Machine) => void;
+}) {
+  const rows = machineHealth(machines, optimization.schedules, workingDays);
+  if (rows.length === 0) return null;
+  const known = rows.filter((r) => r.status !== 'unknown');
+  const extraW = known.reduce((s, r) => s + (r.estimatedW - r.ratedW), 0);
+  const extraKwhMonth = known.reduce((s, r) => s + r.extraKwhDay, 0) * workingDays;
+  const extraMonth = known.reduce((s, r) => s + r.extraCostMonth, 0);
+  const attention = rows.filter((r) => r.status === 'replace' || r.status === 'service');
+  const fmtRs = (n: number) => `Rs. ${Math.round(n).toLocaleString()}`;
+
+  return (
+    <section className="table-card health-card">
+      <div className="table-head">
+        <div>
+          <h2>Machine Health &amp; Ageing Estimate <span>Warnings &amp; Recommendations</span></h2>
+          <p>Older machines usually draw more power than their rating. Estimated from each machine&apos;s manufactured year — confirm with a clamp-meter reading.</p>
+        </div>
+      </div>
+
+      <div className="metric-grid health-metrics">
+        <Metric icon={<Zap />} label="Est. Extra Power" value={`+${Math.round(extraW).toLocaleString()} W`} note="Above rated power, all machines" tone="amber" />
+        <Metric icon={<Activity />} label="Est. Extra Energy" value={`${Math.round(extraKwhMonth).toLocaleString()} kWh / month`} note={`${workingDays} working days`} tone="amber" />
+        <Metric icon={<TrendingDown />} label="Est. Extra Cost" value={`${fmtRs(extraMonth)} / month`} note={`≈ ${fmtRs(extraMonth * 12)} per year`} tone="red" />
+        <Metric icon={<Wrench />} label="Need Attention" value={`${attention.length} of ${rows.length}`} note="Service due or replace" tone={attention.length ? 'red' : 'green'} />
+      </div>
+
+      {attention.length > 0 && (
+        <div className="health-alerts">
+          {attention.map((r) => (
+            <div key={r.machine.id} className={`health-alert health-${r.status}`}>
+              <AlertTriangle size={18} />
+              <div>
+                <b>{r.machine.name} — {STATUS_LABEL[r.status]}</b>
+                <p>
+                  Built {r.machine.manufacturedYear} ({r.age} yrs). Rated {r.ratedW.toLocaleString()} W, estimated now
+                  {' '}<b>{Math.round(r.estimatedW).toLocaleString()} W (+{r.increasePct.toFixed(1)}%)</b> → about
+                  {' '}<b>{fmtRs(r.extraCostMonth)} / month</b> extra. {r.recommendation}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Machine</th><th>Manufactured</th><th>Drift / yr</th><th>Rated power</th><th>Est. power now</th>
+              <th>Increase</th><th>Extra kWh / day</th><th>Extra cost / month</th><th>Status</th><th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.machine.id}>
+                <td><b>{r.machine.name}</b><small className="table-muted">{r.machine.category}</small></td>
+                <td className="mono">
+                  {r.age === null
+                    ? <button className="text-button" onClick={() => onEdit(r.machine)}>Set year</button>
+                    : <>{r.machine.manufacturedYear}<small className="table-muted">{r.age} yrs old</small></>}
+                </td>
+                <td className="mono">{(r.driftPerYear * 100).toFixed(1)}%</td>
+                <td className="mono">{r.ratedW.toLocaleString()} W</td>
+                <td className="mono"><b>{Math.round(r.estimatedW).toLocaleString()} W</b></td>
+                <td className="mono">{r.age === null ? '—' : `+${r.increasePct.toFixed(1)}%`}</td>
+                <td className="mono">{r.extraKwhDay.toFixed(2)}</td>
+                <td className="mono">{r.age === null ? '—' : fmtRs(r.extraCostMonth)}</td>
+                <td><span className={`health-chip health-${r.status}`}>{r.status === 'replace' || r.status === 'service' ? <AlertTriangle size={12} /> : r.status === 'unknown' ? <CalendarClock size={12} /> : <CheckCircle2 size={12} />} {STATUS_LABEL[r.status]}</span></td>
+                <td className="health-reco">{r.recommendation}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="table-note">
+        <Wrench size={17} />
+        <span>
+          <b>How it is estimated:</b> est. W = rated W × (1 + drift)<sup>age</sup>, drift per year by type (motors 0.8%, heating / washing 1.5%,
+          compressors 2%, capped at +25%). Extra cost uses the Rs/kWh each machine pays in its optimized time slot. The optimizer itself still uses the rated W.
+          Status: under 3% Good · 3–8% Monitor · 8–15% Service due · 15%+ Replace / overhaul.
+        </span>
+      </div>
+    </section>
   );
 }

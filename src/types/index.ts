@@ -56,6 +56,10 @@ export type Machine = {
   tone: string;
   availableStart?: string;
   availableEnd?: string;
+  /** How the factory ran it before optimization ("HH:MM:SS"); the cost baseline. Empty = window open. */
+  usualStart?: string;
+  /** Year the machine was built; drives the ageing / efficiency-loss estimate. */
+  manufacturedYear?: number | null;
 };
 
 export type ScheduleSlot = {
@@ -87,6 +91,53 @@ export type ReportRow = {
   energy: number;
 };
 
+export type Season = 'Peak' | 'Normal' | 'Low';
+
+// One month of the seasonal operating plan. The first block is stored; the rest is computed
+// (by the backend, or by data/optimizer.ts in demo mode) from the current machines and tariffs.
+export type MonthlyProfile = {
+  id: string;
+  year: number;
+  month: number;
+  season: Season;
+  /** false = month before the factory used the app: the bill is the usual (un-optimized) schedule. */
+  optimized: boolean;
+  workingDays: number;
+  startTime: string;
+  endTime: string;
+  inactiveMachineIds: string[];
+  hoursPerDay: number;
+  activeMachines: number;
+  skipped: string[];
+  dailyKwh: number;
+  dailyCost: number;
+  monthlyKwh: number;
+  monthlyBill: number;
+  monthlyBaseline: number;
+  monthlySaving: number;
+  potentialSaving: number;
+  kwhPerHour: number;
+  costPerHour: number;
+};
+
+export type ProfileInput = Pick<MonthlyProfile, 'season' | 'optimized' | 'workingDays' | 'startTime' | 'endTime' | 'inactiveMachineIds'>;
+
+export type RunRecord = {
+  id: string;
+  createdAt: string;
+  trigger: string;
+  currentCost: number;
+  optimizedCost: number;
+  dailySaving: number;
+  savingPercent: number;
+  energy: number;
+  productiveHours: number;
+  machinesScheduled: number;
+  kwhPerHour: number;
+  costPerHour: number;
+  schedules: { machineName: string; start: string; end: string; energy: number; cost: number }[];
+};
+
 export type PortalData = {
   users: User[];
   facility: Facility;
@@ -94,6 +145,8 @@ export type PortalData = {
   machines: Machine[];
   optimization: Optimization;
   reports: ReportRow[];
+  profiles: MonthlyProfile[];
+  history: RunRecord[];
 };
 
-export type View = 'factory' | 'machines' | 'optimization' | 'dashboard' | 'reports';
+export type View = 'factory' | 'machines' | 'optimization' | 'dashboard' | 'planning' | 'reports';

@@ -1,7 +1,8 @@
-import { BarChart3, CheckCircle2, Clock3, Sparkles, TrendingDown, Zap, ArrowRight } from 'lucide-react';
+import { BarChart3, CheckCircle2, Clock3, Gauge, Sparkles, TrendingDown, Zap, ArrowRight } from 'lucide-react';
 import { Metric } from '@/components/Metric';
 import { useToast } from '@/components/ToastContext';
 import { downloadCsv } from '@/data/api';
+import { productiveHours } from '@/data/optimizer';
 import type { Facility, Machine, Optimization as OptData, Tariff, View } from '@/types';
 
 type Props = {
@@ -20,7 +21,9 @@ export function Dashboard({ machines, optimization: o, facility, tariffs, setVie
     return slot ? [{ m, slot, rate: slot.energy > 0 ? slot.cost / slot.energy : 0 }] : [];
   });
   const totalEnergy = rows.reduce((s, r) => s + r.slot.energy, 0);
-  const totalPower = machines.reduce((s, m) => s + (m.quantity * m.power) / 1000, 0);
+  const totalPowerW = machines.reduce((s, m) => s + m.quantity * m.power, 0);
+  // Productive hours = factory operating hours (start to end).
+  const hours = productiveHours(facility.startTime, facility.endTime);
   const costPerUnit = totalEnergy > 0 ? o.optimizedCost / totalEnergy : 0;
   const notScheduled = machines.length - rows.length;
 
@@ -51,10 +54,17 @@ export function Dashboard({ machines, optimization: o, facility, tariffs, setVie
       </section>
 
       <section className="metric-grid">
-        <Metric icon={<Zap />} label="Total Energy" value={`${o.energy} kWh / day`} note={`${totalPower.toFixed(1)} kW installed`} tone="amber" />
+        <Metric icon={<Zap />} label="Total Energy" value={`${o.energy} kWh / day`} note="Optimized schedule" tone="amber" />
         <Metric icon={<BarChart3 />} label="Cost Per Unit" value={`Rs. ${costPerUnit.toFixed(2)}/kWh`} note="Optimized average rate" tone="blue" />
         <Metric icon={<TrendingDown />} label="Cost Reduction" value={`${o.savingPercent}%`} note="Electricity cost saved" tone="green" />
         <Metric icon={<CheckCircle2 />} label="Machines Optimized" value={`${rows.length} / ${machines.length}`} note={notScheduled > 0 ? `${notScheduled} not scheduled - re-run optimization` : 'All machines scheduled'} tone={notScheduled > 0 ? 'amber' : 'green'} />
+      </section>
+
+      <section className="metric-grid">
+        <Metric icon={<Clock3 />} label="Productive Hours" value={`${hours.toFixed(1)} h / day`} note={`${facility.startTime} – ${facility.endTime} operating hours`} tone="blue" />
+        <Metric icon={<Gauge />} label="kWh / Productive Hour" value={hours > 0 ? (o.energy / hours).toFixed(2) : '0'} note="Daily kWh ÷ productive hours" tone="amber" />
+        <Metric icon={<Gauge />} label="Cost / Productive Hour" value={`Rs. ${hours > 0 ? (o.optimizedCost / hours).toFixed(2) : '0'}`} note="Optimized daily cost ÷ productive hours" tone="green" />
+        <Metric icon={<Zap />} label="Installed Power" value={`${totalPowerW.toLocaleString()} W`} note="Σ quantity × W per unit" tone="blue" />
       </section>
 
       <section className="table-card">

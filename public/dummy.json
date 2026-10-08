@@ -63,12 +63,14 @@
       "quantity": 2,
       "power": 4000.0,
       "hours": 3.0,
-      "window": "08:00 AM – 10:00 PM",
+      "window": "07:00 AM – 10:00 PM",
       "priority": "High",
-      "saving": 0.0,
+      "saving": 472.0,
       "tone": "blue",
-      "availableStart": "08:00:00",
-      "availableEnd": "22:00:00"
+      "availableStart": "07:00:00",
+      "availableEnd": "22:00:00",
+      "usualStart": "16:30:00",
+      "manufacturedYear": 2019
     },
     {
       "id": "2",
@@ -83,22 +85,26 @@
       "saving": 0.0,
       "tone": "green",
       "availableStart": "08:00:00",
-      "availableEnd": "17:00:00"
+      "availableEnd": "17:00:00",
+      "usualStart": "08:00:00",
+      "manufacturedYear": 2016
     },
     {
       "id": "3",
       "name": "Overlock Machine",
       "modelName": "Pegasus M700",
-      "category": "Finishing",
+      "category": "Sewing",
       "quantity": 4,
       "power": 750.0,
       "hours": 6.0,
       "window": "08:00 AM – 10:00 PM",
       "priority": "Medium",
-      "saving": 0.0,
+      "saving": 177.0,
       "tone": "amber",
       "availableStart": "08:00:00",
-      "availableEnd": "22:00:00"
+      "availableEnd": "22:00:00",
+      "usualStart": "13:30:00",
+      "manufacturedYear": 2021
     },
     {
       "id": "4",
@@ -108,12 +114,14 @@
       "quantity": 3,
       "power": 2200.0,
       "hours": 4.0,
-      "window": "09:00 AM – 06:00 PM",
+      "window": "08:00 AM – 10:00 PM",
       "priority": "Medium",
-      "saving": 0.0,
+      "saving": 584.1,
       "tone": "blue",
-      "availableStart": "09:00:00",
-      "availableEnd": "18:00:00"
+      "availableStart": "08:00:00",
+      "availableEnd": "22:00:00",
+      "usualStart": "16:00:00",
+      "manufacturedYear": 2014
     },
     {
       "id": "5",
@@ -123,29 +131,116 @@
       "quantity": 1,
       "power": 5500.0,
       "hours": 2.0,
-      "window": "06:30 PM – 11:30 PM",
+      "window": "07:00 AM – 11:30 PM",
       "priority": "Low",
-      "saving": 401.5,
+      "saving": 649.0,
       "tone": "green",
-      "availableStart": "18:30:00",
-      "availableEnd": "23:30:00"
+      "availableStart": "07:00:00",
+      "availableEnd": "23:30:00",
+      "usualStart": "19:00:00",
+      "manufacturedYear": 2018
+    },
+    {
+      "id": "6",
+      "name": "Tumble Dryer",
+      "modelName": "Electrolux T5550",
+      "category": "Washing",
+      "quantity": 1,
+      "power": 6000.0,
+      "hours": 2.0,
+      "window": "07:00 AM – 11:30 PM",
+      "priority": "Low",
+      "saving": 489.0,
+      "tone": "amber",
+      "availableStart": "07:00:00",
+      "availableEnd": "23:30:00",
+      "usualStart": "21:00:00",
+      "manufacturedYear": 2015
+    },
+    {
+      "id": "7",
+      "name": "Fusing Press",
+      "modelName": "Hashima HP-450",
+      "category": "Finishing",
+      "quantity": 2,
+      "power": 3500.0,
+      "hours": 3.0,
+      "window": "08:00 AM – 10:00 PM",
+      "priority": "Medium",
+      "saving": 206.5,
+      "tone": "blue",
+      "availableStart": "08:00:00",
+      "availableEnd": "22:00:00",
+      "usualStart": "16:00:00",
+      "manufacturedYear": 2022
+    },
+    {
+      "id": "8",
+      "name": "Embroidery Machine",
+      "modelName": "Tajima TMBR-SC",
+      "category": "Embroidery",
+      "quantity": 2,
+      "power": 1200.0,
+      "hours": 6.0,
+      "window": "08:00 AM – 11:00 PM",
+      "priority": "Medium",
+      "saving": 212.4,
+      "tone": "green",
+      "availableStart": "08:00:00",
+      "availableEnd": "23:00:00",
+      "usualStart": "14:00:00",
+      "manufacturedYear": 2023
+    },
+    {
+      "id": "9",
+      "name": "Air Compressor",
+      "modelName": "Atlas Copco GA11",
+      "category": "Utilities",
+      "quantity": 1,
+      "power": 11000.0,
+      "hours": 4.0,
+      "window": "07:00 AM – 11:30 PM",
+      "priority": "High",
+      "saving": 324.5,
+      "tone": "amber",
+      "availableStart": "07:00:00",
+      "availableEnd": "23:30:00",
+      "usualStart": "15:00:00",
+      "manufacturedYear": 2012
+    },
+    {
+      "id": "10",
+      "name": "Packaging Sealer",
+      "modelName": "Hualian FR-900",
+      "category": "Packaging",
+      "quantity": 2,
+      "power": 1500.0,
+      "hours": 2.0,
+      "window": "08:00 AM – 10:00 PM",
+      "priority": "Low",
+      "saving": 354.0,
+      "tone": "blue",
+      "availableStart": "08:00:00",
+      "availableEnd": "22:00:00",
+      "usualStart": "20:00:00",
+      "manufacturedYear": 2020
     }
   ],
   "optimization": {
-    "currentCost": 6260.8,
-    "optimizedCost": 5859.3,
-    "dailySaving": 401.5,
-    "monthlySaving": 10439.0,
-    "energy": 119.4,
-    "savingPercent": 6.41,
+    "currentCost": 13658.1,
+    "optimizedCost": 10189.6,
+    "dailySaving": 3468.5,
+    "monthlySaving": 90181.0,
+    "energy": 216.8,
+    "savingPercent": 25.4,
     "schedules": [
       {
         "machineId": "1",
-        "start": "08:00",
-        "end": "11:00",
+        "start": "07:00",
+        "end": "10:00",
         "energy": 24.0,
         "cost": 1128.0,
-        "saving": 0.0
+        "saving": 472.0
       },
       {
         "machineId": "2",
@@ -161,23 +256,63 @@
         "end": "14:00",
         "energy": 18.0,
         "cost": 846.0,
-        "saving": 0.0
+        "saving": 177.0
       },
       {
         "machineId": "4",
-        "start": "09:00",
-        "end": "13:00",
+        "start": "08:00",
+        "end": "12:00",
         "energy": 26.4,
         "cost": 1240.8,
-        "saving": 0.0
+        "saving": 584.1
       },
       {
         "machineId": "5",
-        "start": "21:30",
-        "end": "23:30",
+        "start": "07:00",
+        "end": "09:00",
         "energy": 11.0,
-        "cost": 764.5,
-        "saving": 401.5
+        "cost": 517.0,
+        "saving": 649.0
+      },
+      {
+        "machineId": "6",
+        "start": "07:00",
+        "end": "09:00",
+        "energy": 12.0,
+        "cost": 564.0,
+        "saving": 489.0
+      },
+      {
+        "machineId": "7",
+        "start": "08:00",
+        "end": "11:00",
+        "energy": 21.0,
+        "cost": 987.0,
+        "saving": 206.5
+      },
+      {
+        "machineId": "8",
+        "start": "08:00",
+        "end": "14:00",
+        "energy": 14.4,
+        "cost": 676.8,
+        "saving": 212.4
+      },
+      {
+        "machineId": "9",
+        "start": "07:00",
+        "end": "11:00",
+        "energy": 44.0,
+        "cost": 2068.0,
+        "saving": 324.5
+      },
+      {
+        "machineId": "10",
+        "start": "08:00",
+        "end": "10:00",
+        "energy": 6.0,
+        "cost": 282.0,
+        "saving": 354.0
       }
     ],
     "skipped": []
@@ -186,114 +321,2070 @@
     {
       "id": "1",
       "date": "2026-10-06",
-      "currentCost": 6260.8,
-      "optimizedCost": 5859.3,
-      "saving": 401.5,
-      "energy": 119.4
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "saving": 3468.5,
+      "energy": 216.8
     },
     {
       "id": "2",
       "date": "2026-10-05",
-      "currentCost": 6072.98,
-      "optimizedCost": 5683.52,
-      "saving": 389.46,
-      "energy": 115.82
+      "currentCost": 13248.36,
+      "optimizedCost": 9883.91,
+      "saving": 3364.45,
+      "energy": 210.3
     },
     {
       "id": "3",
       "date": "2026-10-03",
-      "currentCost": 6448.62,
-      "optimizedCost": 6035.08,
-      "saving": 413.54,
-      "energy": 122.98
+      "currentCost": 14067.84,
+      "optimizedCost": 10495.29,
+      "saving": 3572.55,
+      "energy": 223.3
     },
     {
       "id": "4",
       "date": "2026-10-02",
-      "currentCost": 5947.76,
-      "optimizedCost": 5566.34,
-      "saving": 381.42,
-      "energy": 113.43
+      "currentCost": 12975.19,
+      "optimizedCost": 9680.12,
+      "saving": 3295.07,
+      "energy": 205.96
     },
     {
       "id": "5",
       "date": "2026-10-01",
-      "currentCost": 6386.02,
-      "optimizedCost": 5976.49,
-      "saving": 409.53,
-      "energy": 121.79
+      "currentCost": 13931.26,
+      "optimizedCost": 10393.39,
+      "saving": 3537.87,
+      "energy": 221.14
     },
     {
       "id": "6",
       "date": "2026-09-30",
-      "currentCost": 5634.72,
-      "optimizedCost": 5273.37,
-      "saving": 361.35,
-      "energy": 107.46
+      "currentCost": 12428.87,
+      "optimizedCost": 9272.54,
+      "saving": 3156.33,
+      "energy": 197.29
     },
     {
       "id": "7",
       "date": "2026-09-29",
-      "currentCost": 6511.23,
-      "optimizedCost": 6093.67,
-      "saving": 417.56,
-      "energy": 124.18
+      "currentCost": 14204.42,
+      "optimizedCost": 10597.18,
+      "saving": 3607.24,
+      "energy": 225.47
     },
     {
       "id": "8",
       "date": "2026-09-28",
-      "currentCost": 6135.58,
-      "optimizedCost": 5742.11,
-      "saving": 393.47,
-      "energy": 117.01
+      "currentCost": 13384.94,
+      "optimizedCost": 9985.81,
+      "saving": 3399.13,
+      "energy": 212.46
     },
     {
       "id": "9",
       "date": "2026-09-26",
-      "currentCost": 6323.41,
-      "optimizedCost": 5917.89,
-      "saving": 405.52,
-      "energy": 120.59
+      "currentCost": 13794.68,
+      "optimizedCost": 10291.5,
+      "saving": 3503.18,
+      "energy": 218.97
     },
     {
       "id": "10",
       "date": "2026-09-25",
-      "currentCost": 5885.15,
-      "optimizedCost": 5507.74,
-      "saving": 377.41,
-      "energy": 112.24
+      "currentCost": 12838.61,
+      "optimizedCost": 9578.22,
+      "saving": 3260.39,
+      "energy": 203.79
     },
     {
       "id": "11",
       "date": "2026-09-24",
-      "currentCost": 6573.84,
-      "optimizedCost": 6152.27,
-      "saving": 421.57,
-      "energy": 125.37
+      "currentCost": 14341.01,
+      "optimizedCost": 10699.08,
+      "saving": 3641.93,
+      "energy": 227.64
     },
     {
       "id": "12",
       "date": "2026-09-23",
-      "currentCost": 6010.37,
-      "optimizedCost": 5624.93,
-      "saving": 385.44,
-      "energy": 114.62
+      "currentCost": 13111.78,
+      "optimizedCost": 9782.02,
+      "saving": 3329.76,
+      "energy": 208.13
     },
     {
       "id": "13",
       "date": "2026-09-22",
-      "currentCost": 6260.8,
-      "optimizedCost": 5859.3,
-      "saving": 401.5,
-      "energy": 119.4
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "saving": 3468.5,
+      "energy": 216.8
     },
     {
       "id": "14",
       "date": "2026-09-21",
-      "currentCost": 6198.19,
-      "optimizedCost": 5800.71,
-      "saving": 397.48,
-      "energy": 118.21
+      "currentCost": 13521.52,
+      "optimizedCost": 10087.7,
+      "saving": 3433.82,
+      "energy": 214.63
+    },
+    {
+      "id": "15",
+      "date": "2026-09-19",
+      "currentCost": 13931.26,
+      "optimizedCost": 10393.39,
+      "saving": 3537.87,
+      "energy": 221.14
+    },
+    {
+      "id": "16",
+      "date": "2026-09-18",
+      "currentCost": 12702.03,
+      "optimizedCost": 9476.33,
+      "saving": 3225.7,
+      "energy": 201.62
+    },
+    {
+      "id": "17",
+      "date": "2026-09-17",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "saving": 3468.5,
+      "energy": 216.8
+    },
+    {
+      "id": "18",
+      "date": "2026-09-16",
+      "currentCost": 13248.36,
+      "optimizedCost": 9883.91,
+      "saving": 3364.45,
+      "energy": 210.3
+    },
+    {
+      "id": "19",
+      "date": "2026-09-15",
+      "currentCost": 14067.84,
+      "optimizedCost": 10495.29,
+      "saving": 3572.55,
+      "energy": 223.3
+    },
+    {
+      "id": "20",
+      "date": "2026-09-14",
+      "currentCost": 12975.19,
+      "optimizedCost": 9680.12,
+      "saving": 3295.07,
+      "energy": 205.96
+    },
+    {
+      "id": "21",
+      "date": "2026-09-12",
+      "currentCost": 13931.26,
+      "optimizedCost": 10393.39,
+      "saving": 3537.87,
+      "energy": 221.14
+    },
+    {
+      "id": "22",
+      "date": "2026-09-11",
+      "currentCost": 12428.87,
+      "optimizedCost": 9272.54,
+      "saving": 3156.33,
+      "energy": 197.29
+    },
+    {
+      "id": "23",
+      "date": "2026-09-10",
+      "currentCost": 14204.42,
+      "optimizedCost": 10597.18,
+      "saving": 3607.24,
+      "energy": 225.47
+    },
+    {
+      "id": "24",
+      "date": "2026-09-09",
+      "currentCost": 13384.94,
+      "optimizedCost": 9985.81,
+      "saving": 3399.13,
+      "energy": 212.46
+    },
+    {
+      "id": "25",
+      "date": "2026-09-08",
+      "currentCost": 13794.68,
+      "optimizedCost": 10291.5,
+      "saving": 3503.18,
+      "energy": 218.97
+    },
+    {
+      "id": "26",
+      "date": "2026-09-07",
+      "currentCost": 12838.61,
+      "optimizedCost": 9578.22,
+      "saving": 3260.39,
+      "energy": 203.79
+    },
+    {
+      "id": "27",
+      "date": "2026-09-05",
+      "currentCost": 14341.01,
+      "optimizedCost": 10699.08,
+      "saving": 3641.93,
+      "energy": 227.64
+    },
+    {
+      "id": "28",
+      "date": "2026-09-04",
+      "currentCost": 13111.78,
+      "optimizedCost": 9782.02,
+      "saving": 3329.76,
+      "energy": 208.13
+    },
+    {
+      "id": "29",
+      "date": "2026-09-03",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "saving": 3468.5,
+      "energy": 216.8
+    },
+    {
+      "id": "30",
+      "date": "2026-09-02",
+      "currentCost": 13521.52,
+      "optimizedCost": 10087.7,
+      "saving": 3433.82,
+      "energy": 214.63
+    },
+    {
+      "id": "31",
+      "date": "2026-09-01",
+      "currentCost": 13931.26,
+      "optimizedCost": 10393.39,
+      "saving": 3537.87,
+      "energy": 221.14
+    },
+    {
+      "id": "32",
+      "date": "2026-08-31",
+      "currentCost": 12702.03,
+      "optimizedCost": 9476.33,
+      "saving": 3225.7,
+      "energy": 201.62
+    },
+    {
+      "id": "33",
+      "date": "2026-08-29",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "saving": 3468.5,
+      "energy": 216.8
+    },
+    {
+      "id": "34",
+      "date": "2026-08-28",
+      "currentCost": 13248.36,
+      "optimizedCost": 9883.91,
+      "saving": 3364.45,
+      "energy": 210.3
+    },
+    {
+      "id": "35",
+      "date": "2026-08-27",
+      "currentCost": 14067.84,
+      "optimizedCost": 10495.29,
+      "saving": 3572.55,
+      "energy": 223.3
+    },
+    {
+      "id": "36",
+      "date": "2026-08-26",
+      "currentCost": 12975.19,
+      "optimizedCost": 9680.12,
+      "saving": 3295.07,
+      "energy": 205.96
+    },
+    {
+      "id": "37",
+      "date": "2026-08-25",
+      "currentCost": 13931.26,
+      "optimizedCost": 10393.39,
+      "saving": 3537.87,
+      "energy": 221.14
+    },
+    {
+      "id": "38",
+      "date": "2026-08-24",
+      "currentCost": 12428.87,
+      "optimizedCost": 9272.54,
+      "saving": 3156.33,
+      "energy": 197.29
+    },
+    {
+      "id": "39",
+      "date": "2026-08-22",
+      "currentCost": 14204.42,
+      "optimizedCost": 10597.18,
+      "saving": 3607.24,
+      "energy": 225.47
+    },
+    {
+      "id": "40",
+      "date": "2026-08-21",
+      "currentCost": 13384.94,
+      "optimizedCost": 9985.81,
+      "saving": 3399.13,
+      "energy": 212.46
+    },
+    {
+      "id": "41",
+      "date": "2026-08-20",
+      "currentCost": 13794.68,
+      "optimizedCost": 10291.5,
+      "saving": 3503.18,
+      "energy": 218.97
+    },
+    {
+      "id": "42",
+      "date": "2026-08-19",
+      "currentCost": 12838.61,
+      "optimizedCost": 9578.22,
+      "saving": 3260.39,
+      "energy": 203.79
+    },
+    {
+      "id": "43",
+      "date": "2026-08-18",
+      "currentCost": 14341.01,
+      "optimizedCost": 10699.08,
+      "saving": 3641.93,
+      "energy": 227.64
+    },
+    {
+      "id": "44",
+      "date": "2026-08-17",
+      "currentCost": 13111.78,
+      "optimizedCost": 9782.02,
+      "saving": 3329.76,
+      "energy": 208.13
+    },
+    {
+      "id": "45",
+      "date": "2026-08-15",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "saving": 3468.5,
+      "energy": 216.8
+    },
+    {
+      "id": "46",
+      "date": "2026-08-14",
+      "currentCost": 13521.52,
+      "optimizedCost": 10087.7,
+      "saving": 3433.82,
+      "energy": 214.63
+    },
+    {
+      "id": "47",
+      "date": "2026-08-13",
+      "currentCost": 13931.26,
+      "optimizedCost": 10393.39,
+      "saving": 3537.87,
+      "energy": 221.14
+    },
+    {
+      "id": "48",
+      "date": "2026-08-12",
+      "currentCost": 12702.03,
+      "optimizedCost": 9476.33,
+      "saving": 3225.7,
+      "energy": 201.62
+    },
+    {
+      "id": "49",
+      "date": "2026-08-11",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "saving": 3468.5,
+      "energy": 216.8
+    },
+    {
+      "id": "50",
+      "date": "2026-08-10",
+      "currentCost": 13248.36,
+      "optimizedCost": 9883.91,
+      "saving": 3364.45,
+      "energy": 210.3
+    },
+    {
+      "id": "51",
+      "date": "2026-08-08",
+      "currentCost": 14067.84,
+      "optimizedCost": 10495.29,
+      "saving": 3572.55,
+      "energy": 223.3
+    },
+    {
+      "id": "52",
+      "date": "2026-08-07",
+      "currentCost": 12975.19,
+      "optimizedCost": 9680.12,
+      "saving": 3295.07,
+      "energy": 205.96
+    },
+    {
+      "id": "53",
+      "date": "2026-08-06",
+      "currentCost": 13931.26,
+      "optimizedCost": 10393.39,
+      "saving": 3537.87,
+      "energy": 221.14
+    },
+    {
+      "id": "54",
+      "date": "2026-08-05",
+      "currentCost": 12428.87,
+      "optimizedCost": 9272.54,
+      "saving": 3156.33,
+      "energy": 197.29
+    },
+    {
+      "id": "55",
+      "date": "2026-08-04",
+      "currentCost": 14204.42,
+      "optimizedCost": 10597.18,
+      "saving": 3607.24,
+      "energy": 225.47
+    },
+    {
+      "id": "56",
+      "date": "2026-08-03",
+      "currentCost": 13384.94,
+      "optimizedCost": 9985.81,
+      "saving": 3399.13,
+      "energy": 212.46
+    },
+    {
+      "id": "57",
+      "date": "2026-08-01",
+      "currentCost": 13794.68,
+      "optimizedCost": 10291.5,
+      "saving": 3503.18,
+      "energy": 218.97
+    },
+    {
+      "id": "58",
+      "date": "2026-07-31",
+      "currentCost": 12838.61,
+      "optimizedCost": 9578.22,
+      "saving": 3260.39,
+      "energy": 203.79
+    },
+    {
+      "id": "59",
+      "date": "2026-07-30",
+      "currentCost": 14341.01,
+      "optimizedCost": 10699.08,
+      "saving": 3641.93,
+      "energy": 227.64
+    },
+    {
+      "id": "60",
+      "date": "2026-07-29",
+      "currentCost": 13111.78,
+      "optimizedCost": 9782.02,
+      "saving": 3329.76,
+      "energy": 208.13
+    }
+  ],
+  "history": [
+    {
+      "id": "RUN-12",
+      "createdAt": "2026-10-05T08:50:00",
+      "trigger": "Manual re-run",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "dailySaving": 3468.5,
+      "savingPercent": 25.4,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "07:00",
+          "end": "10:00",
+          "energy": 24.0,
+          "cost": 1128.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 18.0,
+          "cost": 846.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 12.0,
+          "cost": 564.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "08:00",
+          "end": "11:00",
+          "energy": 21.0,
+          "cost": 987.0
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 14.4,
+          "cost": 676.8
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-11",
+      "createdAt": "2026-08-03T09:30:00",
+      "trigger": "Manual re-run",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "dailySaving": 3468.5,
+      "savingPercent": 25.4,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "07:00",
+          "end": "10:00",
+          "energy": 24.0,
+          "cost": 1128.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 18.0,
+          "cost": 846.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 12.0,
+          "cost": 564.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "08:00",
+          "end": "11:00",
+          "energy": 21.0,
+          "cost": 987.0
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 14.4,
+          "cost": 676.8
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-10",
+      "createdAt": "2026-06-02T09:05:00",
+      "trigger": "Machine updated: Overlock Machine",
+      "currentCost": 13658.1,
+      "optimizedCost": 10189.6,
+      "dailySaving": 3468.5,
+      "savingPercent": 25.4,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "07:00",
+          "end": "10:00",
+          "energy": 24.0,
+          "cost": 1128.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 18.0,
+          "cost": 846.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 12.0,
+          "cost": 564.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "08:00",
+          "end": "11:00",
+          "energy": 21.0,
+          "cost": 987.0
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 14.4,
+          "cost": 676.8
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-9",
+      "createdAt": "2026-06-01T08:45:00",
+      "trigger": "Machine updated: Tumble Dryer",
+      "currentCost": 13658.1,
+      "optimizedCost": 10366.6,
+      "dailySaving": 3291.5,
+      "savingPercent": 24.1,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 628.28,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "07:00",
+          "end": "10:00",
+          "energy": 24.0,
+          "cost": 1128.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 12.0,
+          "cost": 564.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "08:00",
+          "end": "11:00",
+          "energy": 21.0,
+          "cost": 987.0
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 14.4,
+          "cost": 676.8
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-8",
+      "createdAt": "2026-05-04T15:10:00",
+      "trigger": "Machine updated: Embroidery Machine",
+      "currentCost": 13658.1,
+      "optimizedCost": 10636.6,
+      "dailySaving": 3021.5,
+      "savingPercent": 22.12,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 644.64,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "07:00",
+          "end": "10:00",
+          "energy": 24.0,
+          "cost": 1128.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "08:00",
+          "end": "11:00",
+          "energy": 21.0,
+          "cost": 987.0
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "08:00",
+          "end": "14:00",
+          "energy": 14.4,
+          "cost": 676.8
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-7",
+      "createdAt": "2026-04-06T10:30:00",
+      "trigger": "Machine updated: Fusing Press",
+      "currentCost": 13658.1,
+      "optimizedCost": 10849.0,
+      "dailySaving": 2809.1,
+      "savingPercent": 20.57,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 657.52,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "07:00",
+          "end": "10:00",
+          "energy": 24.0,
+          "cost": 1128.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "08:00",
+          "end": "11:00",
+          "energy": 21.0,
+          "cost": 987.0
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "14:00",
+          "end": "20:00",
+          "energy": 14.4,
+          "cost": 889.2
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-6",
+      "createdAt": "2026-03-16T09:55:00",
+      "trigger": "Machine updated: Fabric Cutter",
+      "currentCost": 13658.1,
+      "optimizedCost": 11055.5,
+      "dailySaving": 2602.6,
+      "savingPercent": 19.06,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 670.03,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "07:00",
+          "end": "10:00",
+          "energy": 24.0,
+          "cost": 1128.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "16:00",
+          "end": "19:00",
+          "energy": 21.0,
+          "cost": 1193.5
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "14:00",
+          "end": "20:00",
+          "energy": 14.4,
+          "cost": 889.2
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-5",
+      "createdAt": "2026-03-02T14:20:00",
+      "trigger": "Machine updated: Packaging Sealer",
+      "currentCost": 13658.1,
+      "optimizedCost": 11527.5,
+      "dailySaving": 2130.6,
+      "savingPercent": 15.6,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 698.64,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "16:30",
+          "end": "19:30",
+          "energy": 24.0,
+          "cost": 1600.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "16:00",
+          "end": "19:00",
+          "energy": 21.0,
+          "cost": 1193.5
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "14:00",
+          "end": "20:00",
+          "energy": 14.4,
+          "cost": 889.2
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "08:00",
+          "end": "10:00",
+          "energy": 6.0,
+          "cost": 282.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-4",
+      "createdAt": "2026-02-09T11:15:00",
+      "trigger": "Machine updated: Steam Iron Station",
+      "currentCost": 13658.1,
+      "optimizedCost": 11881.5,
+      "dailySaving": 1776.6,
+      "savingPercent": 13.01,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 720.09,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "16:30",
+          "end": "19:30",
+          "energy": 24.0,
+          "cost": 1600.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "08:00",
+          "end": "12:00",
+          "energy": 26.4,
+          "cost": 1240.8
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "16:00",
+          "end": "19:00",
+          "energy": 21.0,
+          "cost": 1193.5
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "14:00",
+          "end": "20:00",
+          "energy": 14.4,
+          "cost": 889.2
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "20:00",
+          "end": "22:00",
+          "energy": 6.0,
+          "cost": 636.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-3",
+      "createdAt": "2026-01-26T09:40:00",
+      "trigger": "Machine updated: Air Compressor",
+      "currentCost": 13658.1,
+      "optimizedCost": 12465.6,
+      "dailySaving": 1192.5,
+      "savingPercent": 8.73,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 755.49,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "16:30",
+          "end": "19:30",
+          "energy": 24.0,
+          "cost": 1600.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "16:00",
+          "end": "20:00",
+          "energy": 26.4,
+          "cost": 1824.9
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "16:00",
+          "end": "19:00",
+          "energy": 21.0,
+          "cost": 1193.5
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "14:00",
+          "end": "20:00",
+          "energy": 14.4,
+          "cost": 889.2
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "07:00",
+          "end": "11:00",
+          "energy": 44.0,
+          "cost": 2068.0
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "20:00",
+          "end": "22:00",
+          "energy": 6.0,
+          "cost": 636.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-2",
+      "createdAt": "2026-01-12T10:05:00",
+      "trigger": "Machine updated: Washing Unit",
+      "currentCost": 13658.1,
+      "optimizedCost": 12790.1,
+      "dailySaving": 868.0,
+      "savingPercent": 6.36,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 775.16,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "16:30",
+          "end": "19:30",
+          "energy": 24.0,
+          "cost": 1600.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "16:00",
+          "end": "20:00",
+          "energy": 26.4,
+          "cost": 1824.9
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "07:00",
+          "end": "09:00",
+          "energy": 11.0,
+          "cost": 517.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "16:00",
+          "end": "19:00",
+          "energy": 21.0,
+          "cost": 1193.5
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "14:00",
+          "end": "20:00",
+          "energy": 14.4,
+          "cost": 889.2
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "15:00",
+          "end": "19:00",
+          "energy": 44.0,
+          "cost": 2392.5
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "20:00",
+          "end": "22:00",
+          "energy": 6.0,
+          "cost": 636.0
+        }
+      ]
+    },
+    {
+      "id": "RUN-1",
+      "createdAt": "2026-01-05T09:12:00",
+      "trigger": "Initial calculation",
+      "currentCost": 13658.1,
+      "optimizedCost": 13439.1,
+      "dailySaving": 219.0,
+      "savingPercent": 1.6,
+      "energy": 216.8,
+      "productiveHours": 16.5,
+      "machinesScheduled": 10,
+      "kwhPerHour": 13.14,
+      "costPerHour": 814.49,
+      "schedules": [
+        {
+          "machineName": "Fabric Cutter",
+          "start": "16:30",
+          "end": "19:30",
+          "energy": 24.0,
+          "cost": 1600.0
+        },
+        {
+          "machineName": "Sewing Machine Line",
+          "start": "08:00",
+          "end": "16:00",
+          "energy": 40.0,
+          "cost": 1880.0
+        },
+        {
+          "machineName": "Overlock Machine",
+          "start": "13:30",
+          "end": "19:30",
+          "energy": 18.0,
+          "cost": 1023.0
+        },
+        {
+          "machineName": "Steam Iron Station",
+          "start": "16:00",
+          "end": "20:00",
+          "energy": 26.4,
+          "cost": 1824.9
+        },
+        {
+          "machineName": "Washing Unit",
+          "start": "19:00",
+          "end": "21:00",
+          "energy": 11.0,
+          "cost": 1166.0
+        },
+        {
+          "machineName": "Tumble Dryer",
+          "start": "21:30",
+          "end": "23:30",
+          "energy": 12.0,
+          "cost": 834.0
+        },
+        {
+          "machineName": "Fusing Press",
+          "start": "16:00",
+          "end": "19:00",
+          "energy": 21.0,
+          "cost": 1193.5
+        },
+        {
+          "machineName": "Embroidery Machine",
+          "start": "14:00",
+          "end": "20:00",
+          "energy": 14.4,
+          "cost": 889.2
+        },
+        {
+          "machineName": "Air Compressor",
+          "start": "15:00",
+          "end": "19:00",
+          "energy": 44.0,
+          "cost": 2392.5
+        },
+        {
+          "machineName": "Packaging Sealer",
+          "start": "20:00",
+          "end": "22:00",
+          "energy": 6.0,
+          "cost": 636.0
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "P-2025-1",
+      "year": 2025,
+      "month": 1,
+      "season": "Low",
+      "optimized": false,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "21:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 14.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13877.1,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 346927.5,
+      "monthlyBaseline": 346927.5,
+      "monthlySaving": 0.0,
+      "potentialSaving": 92187.5,
+      "kwhPerHour": 14.95,
+      "costPerHour": 957.04
+    },
+    {
+      "id": "P-2025-2",
+      "year": 2025,
+      "month": 2,
+      "season": "Normal",
+      "optimized": false,
+      "workingDays": 22,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 4769.6,
+      "monthlyBill": 300478.2,
+      "monthlyBaseline": 300478.2,
+      "monthlySaving": 0.0,
+      "potentialSaving": 76307.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-3",
+      "year": 2025,
+      "month": 3,
+      "season": "Normal",
+      "optimized": false,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 341452.5,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 0.0,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-4",
+      "year": 2025,
+      "month": 4,
+      "season": "Low",
+      "optimized": false,
+      "workingDays": 23,
+      "startTime": "07:00",
+      "endTime": "21:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 14.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13877.1,
+      "monthlyKwh": 4986.4,
+      "monthlyBill": 319173.3,
+      "monthlyBaseline": 319173.3,
+      "monthlySaving": 0.0,
+      "potentialSaving": 84812.5,
+      "kwhPerHour": 14.95,
+      "costPerHour": 957.04
+    },
+    {
+      "id": "P-2025-5",
+      "year": 2025,
+      "month": 5,
+      "season": "Normal",
+      "optimized": false,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 341452.5,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 0.0,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-6",
+      "year": 2025,
+      "month": 6,
+      "season": "Normal",
+      "optimized": false,
+      "workingDays": 24,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5203.2,
+      "monthlyBill": 327794.4,
+      "monthlyBaseline": 327794.4,
+      "monthlySaving": 0.0,
+      "potentialSaving": 83244.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-7",
+      "year": 2025,
+      "month": 7,
+      "season": "Normal",
+      "optimized": false,
+      "workingDays": 26,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5636.8,
+      "monthlyBill": 355110.6,
+      "monthlyBaseline": 355110.6,
+      "monthlySaving": 0.0,
+      "potentialSaving": 90181.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-8",
+      "year": 2025,
+      "month": 8,
+      "season": "Peak",
+      "optimized": false,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 341452.5,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 0.0,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-9",
+      "year": 2025,
+      "month": 9,
+      "season": "Peak",
+      "optimized": false,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 341452.5,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 0.0,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-10",
+      "year": 2025,
+      "month": 10,
+      "season": "Peak",
+      "optimized": false,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 341452.5,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 0.0,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-11",
+      "year": 2025,
+      "month": 11,
+      "season": "Peak",
+      "optimized": false,
+      "workingDays": 24,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5203.2,
+      "monthlyBill": 327794.4,
+      "monthlyBaseline": 327794.4,
+      "monthlySaving": 0.0,
+      "potentialSaving": 83244.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2025-12",
+      "year": 2025,
+      "month": 12,
+      "season": "Normal",
+      "optimized": false,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 13658.1,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 341452.5,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 0.0,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 827.76
+    },
+    {
+      "id": "P-2026-1",
+      "year": 2026,
+      "month": 1,
+      "season": "Low",
+      "optimized": true,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "21:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 14.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 254740.0,
+      "monthlyBaseline": 346927.5,
+      "monthlySaving": 92187.5,
+      "potentialSaving": 92187.5,
+      "kwhPerHour": 14.95,
+      "costPerHour": 702.73
+    },
+    {
+      "id": "P-2026-2",
+      "year": 2026,
+      "month": 2,
+      "season": "Normal",
+      "optimized": true,
+      "workingDays": 22,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 4769.6,
+      "monthlyBill": 224171.2,
+      "monthlyBaseline": 300478.2,
+      "monthlySaving": 76307.0,
+      "potentialSaving": 76307.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-3",
+      "year": 2026,
+      "month": 3,
+      "season": "Normal",
+      "optimized": true,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 254740.0,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 86712.5,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-4",
+      "year": 2026,
+      "month": 4,
+      "season": "Low",
+      "optimized": true,
+      "workingDays": 23,
+      "startTime": "07:00",
+      "endTime": "21:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 14.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 4986.4,
+      "monthlyBill": 234360.8,
+      "monthlyBaseline": 319173.3,
+      "monthlySaving": 84812.5,
+      "potentialSaving": 84812.5,
+      "kwhPerHour": 14.95,
+      "costPerHour": 702.73
+    },
+    {
+      "id": "P-2026-5",
+      "year": 2026,
+      "month": 5,
+      "season": "Normal",
+      "optimized": true,
+      "workingDays": 24,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5203.2,
+      "monthlyBill": 244550.4,
+      "monthlyBaseline": 327794.4,
+      "monthlySaving": 83244.0,
+      "potentialSaving": 83244.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-6",
+      "year": 2026,
+      "month": 6,
+      "season": "Normal",
+      "optimized": true,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 254740.0,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 86712.5,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-7",
+      "year": 2026,
+      "month": 7,
+      "season": "Normal",
+      "optimized": true,
+      "workingDays": 26,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5636.8,
+      "monthlyBill": 264929.6,
+      "monthlyBaseline": 355110.6,
+      "monthlySaving": 90181.0,
+      "potentialSaving": 90181.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-8",
+      "year": 2026,
+      "month": 8,
+      "season": "Peak",
+      "optimized": true,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 254740.0,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 86712.5,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-9",
+      "year": 2026,
+      "month": 9,
+      "season": "Peak",
+      "optimized": true,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 254740.0,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 86712.5,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-10",
+      "year": 2026,
+      "month": 10,
+      "season": "Peak",
+      "optimized": true,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 254740.0,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 86712.5,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-11",
+      "year": 2026,
+      "month": 11,
+      "season": "Peak",
+      "optimized": true,
+      "workingDays": 24,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5203.2,
+      "monthlyBill": 244550.4,
+      "monthlyBaseline": 327794.4,
+      "monthlySaving": 83244.0,
+      "potentialSaving": 83244.0,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
+    },
+    {
+      "id": "P-2026-12",
+      "year": 2026,
+      "month": 12,
+      "season": "Normal",
+      "optimized": true,
+      "workingDays": 25,
+      "startTime": "07:00",
+      "endTime": "23:30",
+      "inactiveMachineIds": [],
+      "hoursPerDay": 16.5,
+      "activeMachines": 10,
+      "skipped": [],
+      "dailyKwh": 216.8,
+      "dailyCost": 10189.6,
+      "monthlyKwh": 5420.0,
+      "monthlyBill": 254740.0,
+      "monthlyBaseline": 341452.5,
+      "monthlySaving": 86712.5,
+      "potentialSaving": 86712.5,
+      "kwhPerHour": 13.14,
+      "costPerHour": 617.55
     }
   ]
 }

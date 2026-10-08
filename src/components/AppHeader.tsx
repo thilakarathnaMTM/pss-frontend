@@ -22,6 +22,7 @@ const NAV_ITEMS: { key: View; label: string }[] = [
   { key: 'machines', label: 'Machines' },
   { key: 'optimization', label: 'Optimization' },
   { key: 'dashboard', label: 'Dashboard' },
+  { key: 'planning', label: 'Planning' },
   { key: 'reports', label: 'Reports' },
 ];
 

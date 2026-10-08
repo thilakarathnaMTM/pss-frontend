@@ -1,9 +1,11 @@
-import { computeOptimization } from '@/data/optimizer';
-import type { Machine, PortalData, ProfileUpdateInput, ScheduleSlot, SignupInput, User } from '@/types';
+import { computeOptimization, computeProfile, defaultProfiles, productiveHours, workingDaysIn } from '@/data/optimizer';
+import type {
+  Machine, MonthlyProfile, PortalData, ProfileInput, ProfileUpdateInput, RunRecord, ScheduleSlot, SignupInput, User,
+} from '@/types';
 
 const API_BASE_URL = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 const DUMMY_DATA_URL = '/dummy.json';
-const DUMMY_STORAGE_KEY = 'apex-energy-dummy-data-v2';
+const DUMMY_STORAGE_KEY = 'apex-energy-dummy-data-v5';
 const TOKEN_STORAGE_KEY = 'apex-energy-token';
 let cache: PortalData | null = null;
 
@@ -64,10 +66,42 @@ async function getDummyData(): Promise<PortalData> {
   return data;
 }
 
-// Demo mode: recompute the schedule from the current machines so the pages stay consistent.
-function saveDemoWithOptimization(data: PortalData) {
-  data.optimization = computeOptimization(data.machines, data.tariffs, data.facility);
+// Demo mode: recompute the schedule from the current machines so the pages stay consistent,
+// and save the run to history (same as the backend does).
+function saveDemoWithOptimization(data: PortalData, trigger?: string) {
+  const o = computeOptimization(data.machines, data.tariffs, data.facility);
+  data.optimization = o;
+  if (trigger && o.schedules?.length) {
+    const hours = productiveHours(data.facility.startTime, data.facility.endTime);
+    const run: RunRecord = {
+      id: `RUN-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      trigger,
+      currentCost: o.currentCost,
+      optimizedCost: o.optimizedCost,
+      dailySaving: o.dailySaving,
+      savingPercent: o.savingPercent,
+      energy: o.energy,
+      productiveHours: Math.round(hours * 100) / 100,
+      machinesScheduled: o.schedules.length,
+      kwhPerHour: hours > 0 ? Math.round((o.energy / hours) * 100) / 100 : 0,
+      costPerHour: hours > 0 ? Math.round((o.optimizedCost / hours) * 100) / 100 : 0,
+      schedules: o.schedules.map((x) => ({
+        machineName: data.machines.find((m) => m.id === x.machineId)?.name ?? '',
+        start: x.start, end: x.end, energy: x.energy, cost: x.cost,
+      })),
+    };
+    data.history = [run, ...(data.history ?? [])].slice(0, 200);
+  }
   saveDummyData(data);
+}
+
+function withComputedProfiles(data: PortalData): PortalData {
+  data.history ??= [];
+  data.profiles = (data.profiles ?? [])
+    .map((p) => computeProfile(p, data.machines, data.tariffs))
+    .sort((a, b) => a.year - b.year || a.month - b.month);
+  return data;
 }
 
 export async function refreshData(): Promise<PortalData> {
@@ -120,6 +154,8 @@ type BackendMachine = {
   required_hours: number;
   available_start: string;
   available_end: string;
+  usual_start?: string | null;
+  manufactured_year?: number | null;
   priority: string;
   color: string;
   saving?: number;
@@ -164,6 +200,8 @@ function mapMachineFromBackend(m: BackendMachine): Machine {
     tone: m.color || 'blue',
     availableStart: String(m.available_start).slice(0, 8),
     availableEnd: String(m.available_end).slice(0, 8),
+    usualStart: m.usual_start ? String(m.usual_start).slice(0, 8) : '',
+    manufacturedYear: m.manufactured_year ?? null,
   };
 }
 
@@ -185,7 +223,62 @@ function mapMachineToBackend(m: Partial<Machine> & { available_start?: string; a
   if (m.availableEnd !== undefined) {
     body.available_end = m.availableEnd.length === 5 ? `${m.availableEnd}:00` : m.availableEnd;
   }
+  if (m.manufacturedYear !== undefined) body.manufactured_year = m.manufacturedYear;
+  if (m.usualStart !== undefined) {
+    body.usual_start = m.usualStart ? (m.usualStart.length === 5 ? `${m.usualStart}:00` : m.usualStart) : null;
+  }
   return body;
+}
+
+const hhmm = (t: unknown) => String(t ?? '').slice(0, 5);
+const withSeconds = (t: string) => (t.length === 5 ? `${t}:00` : t);
+
+function mapProfile(p: Record<string, unknown>): MonthlyProfile {
+  return {
+    id: String(p.id),
+    year: Number(p.year),
+    month: Number(p.month),
+    season: (p.season as MonthlyProfile['season']) ?? 'Normal',
+    optimized: p.optimized !== false,
+    workingDays: Number(p.working_days ?? 0),
+    startTime: hhmm(p.start_time),
+    endTime: hhmm(p.end_time),
+    inactiveMachineIds: Array.isArray(p.inactive_machine_ids) ? (p.inactive_machine_ids as number[]).map(String) : [],
+    hoursPerDay: Number(p.hours_per_day ?? 0),
+    activeMachines: Number(p.active_machines ?? 0),
+    skipped: Array.isArray(p.skipped_machines) ? (p.skipped_machines as string[]) : [],
+    dailyKwh: Number(p.daily_kwh ?? 0),
+    dailyCost: Number(p.daily_cost ?? 0),
+    monthlyKwh: Number(p.monthly_kwh ?? 0),
+    monthlyBill: Number(p.monthly_bill ?? 0),
+    monthlyBaseline: Number(p.monthly_baseline ?? 0),
+    monthlySaving: Number(p.monthly_saving ?? 0),
+    potentialSaving: Number(p.potential_saving ?? 0),
+    kwhPerHour: Number(p.kwh_per_hour ?? 0),
+    costPerHour: Number(p.cost_per_hour ?? 0),
+  };
+}
+
+function mapRun(r: Record<string, unknown>): RunRecord {
+  const items = Array.isArray(r.schedules) ? (r.schedules as Array<Record<string, unknown>>) : [];
+  return {
+    id: String(r.id),
+    createdAt: String(r.created_at ?? ''),
+    trigger: String(r.trigger ?? ''),
+    currentCost: Number(r.current_cost ?? 0),
+    optimizedCost: Number(r.optimized_cost ?? 0),
+    dailySaving: Number(r.daily_saving ?? 0),
+    savingPercent: Number(r.saving_percentage ?? 0),
+    energy: Number(r.energy_kwh ?? 0),
+    productiveHours: Number(r.productive_hours ?? 0),
+    machinesScheduled: Number(r.machines_scheduled ?? 0),
+    kwhPerHour: Number(r.kwh_per_hour ?? 0),
+    costPerHour: Number(r.cost_per_hour ?? 0),
+    schedules: items.map((x) => ({
+      machineName: String(x.machine_name ?? ''), start: String(x.start ?? ''), end: String(x.end ?? ''),
+      energy: Number(x.energy_kwh ?? 0), cost: Number(x.cost ?? 0),
+    })),
+  };
 }
 
 export async function fetchData(): Promise<PortalData> {
@@ -198,6 +291,10 @@ export async function fetchData(): Promise<PortalData> {
       request<Record<string, unknown>>('/api/v1/dashboard'),
       request<Record<string, unknown>>('/api/v1/auth/me').catch((): Record<string, unknown> => ({})),
       request<Record<string, unknown>>('/api/v1/reports').catch((): Record<string, unknown> => ({ reports: [] })),
+    ]);
+    const [profilesRaw, historyRaw] = await Promise.all([
+      request<Array<Record<string, unknown>>>('/api/v1/planning/profiles').catch(() => []),
+      request<Array<Record<string, unknown>>>('/api/v1/history?limit=100').catch(() => []),
     ]);
 
     const facility = {
@@ -247,10 +344,12 @@ export async function fetchData(): Promise<PortalData> {
       tariffs,
       optimization,
       reports,
+      profiles: (profilesRaw ?? []).map(mapProfile),
+      history: (historyRaw ?? []).map(mapRun),
     };
     return cache;
   }
-  cache = await getDummyData();
+  cache = withComputedProfiles(await getDummyData());
   return cache;
 }
 
@@ -402,7 +501,7 @@ export async function createMachine(machine: Omit<Machine, 'id'>): Promise<Machi
   const data = await fetchData();
   const created = { ...machine, id: `MCH-${Date.now()}` };
   data.machines.push(created);
-  saveDemoWithOptimization(data);
+  saveDemoWithOptimization(data, `Machine added: ${created.name}`);
   return created;
 }
 
@@ -420,7 +519,7 @@ export async function updateMachine(id: string, machine: Partial<Machine>): Prom
   const index = data.machines.findIndex((item) => item.id === id);
   if (index < 0) throw new Error('Machine not found.');
   data.machines[index] = { ...data.machines[index], ...machine };
-  saveDemoWithOptimization(data);
+  saveDemoWithOptimization(data, `Machine updated: ${data.machines[index].name}`);
   return data.machines[index];
 }
 
@@ -431,8 +530,9 @@ export async function deleteMachine(id: string): Promise<void> {
     return;
   }
   const data = await fetchData();
+  const removed = data.machines.find((item) => item.id === id);
   data.machines = data.machines.filter((item) => item.id !== id);
-  saveDemoWithOptimization(data);
+  saveDemoWithOptimization(data, `Machine deleted: ${removed?.name ?? id}`);
 }
 
 export async function updateFactory(factory: Partial<PortalData['facility']>): Promise<PortalData['facility']> {
@@ -466,7 +566,7 @@ export async function updateFactory(factory: Partial<PortalData['facility']>): P
   }
   const data = await fetchData();
   data.facility = { ...data.facility, ...factory };
-  saveDemoWithOptimization(data);
+  saveDemoWithOptimization(data, 'Factory settings updated');
   return data.facility;
 }
 
@@ -489,8 +589,64 @@ export async function runOptimization(): Promise<PortalData['optimization']> {
     };
   }
   const data = await fetchData();
-  saveDemoWithOptimization(data);
+  saveDemoWithOptimization(data, 'Manual re-run');
   return data.optimization;
+}
+
+// ---- Seasonal plan ----
+
+export async function updateMonthlyProfile(id: string, input: ProfileInput): Promise<void> {
+  if (await isBackendMode()) {
+    await request(`/api/v1/planning/profiles/${encodeURIComponent(id)}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        season: input.season,
+        optimized: input.optimized,
+        working_days: input.workingDays,
+        start_time: withSeconds(input.startTime),
+        end_time: withSeconds(input.endTime),
+        inactive_machine_ids: input.inactiveMachineIds.map(Number),
+      }),
+    });
+    cache = null;
+    return;
+  }
+  const data = await fetchData();
+  const p = data.profiles.find((x) => x.id === id);
+  if (!p) throw new Error('Profile not found.');
+  Object.assign(p, input);
+  saveDummyData(withComputedProfiles(data));
+}
+
+export async function createPlanYear(year: number): Promise<void> {
+  if (await isBackendMode()) {
+    await request(`/api/v1/planning/years/${year}`, { method: 'POST' });
+    cache = null;
+    return;
+  }
+  const data = await fetchData();
+  if (data.profiles.some((p) => p.year === year)) throw new Error(`${year} already exists`);
+  const previous = data.profiles.filter((p) => p.year === year - 1);
+  const fresh = defaultProfiles(data.facility, year).map((p) => {
+    const prev = previous.find((x) => x.month === p.month);
+    return prev
+      ? { ...p, season: prev.season, startTime: prev.startTime, endTime: prev.endTime,
+          inactiveMachineIds: [...prev.inactiveMachineIds], workingDays: workingDaysIn(year, p.month) }
+      : p;
+  });
+  data.profiles.push(...fresh);
+  saveDummyData(withComputedProfiles(data));
+}
+
+export async function deletePlanYear(year: number): Promise<void> {
+  if (await isBackendMode()) {
+    await request(`/api/v1/planning/years/${year}`, { method: 'DELETE' });
+    cache = null;
+    return;
+  }
+  const data = await fetchData();
+  data.profiles = data.profiles.filter((p) => p.year !== year);
+  saveDummyData(data);
 }
 
 export function downloadCsv(filename: string, rows: Array<Array<string | number>>) {

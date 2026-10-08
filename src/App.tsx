@@ -9,6 +9,7 @@ import { Machines } from '@/features/machines/Machines';
 import { Optimization } from '@/features/optimization/Optimization';
 import { Dashboard } from '@/features/dashboard/Dashboard';
 import { Reports } from '@/features/reports/Reports';
+import { Planning } from '@/features/planning/Planning';
 import { fetchData, isBackendMode, refreshData } from '@/data/api';
 import type { PortalData, View } from '@/types';
 
@@ -51,10 +52,11 @@ function AppContent() {
           onChanged={reload}
         />
       )}
-      {view === 'machines' && <Machines machines={data.machines} optimization={data.optimization} onChanged={reload} setView={setView} />}
+      {view === 'machines' && <Machines machines={data.machines} optimization={data.optimization} workingDays={data.facility.workingDays} onChanged={reload} setView={setView} />}
       {view === 'optimization' && <Optimization machines={data.machines} optimization={data.optimization} onChanged={reload} tariffs={data.tariffs} setView={setView} />}
       {view === 'dashboard' && <Dashboard machines={data.machines} optimization={data.optimization} facility={data.facility} tariffs={data.tariffs} setView={setView} />}
-      {view === 'reports' && <Reports reports={data.reports} setView={setView} />}
+      {view === 'planning' && <Planning profiles={data.profiles} machines={data.machines} onChanged={reload} setView={setView} />}
+      {view === 'reports' && <Reports reports={data.reports} history={data.history} setView={setView} />}
     </AppHeader>
   );
 }

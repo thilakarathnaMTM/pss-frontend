@@ -122,7 +122,7 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
       </section>
 
       <section className="metric-grid optimization-metrics">
-        <Metric icon={<TrendingDown />} label="Current Daily Cost" value={`Rs. ${o.currentCost.toLocaleString()}`} note="If each machine starts at window open" tone="red" />
+        <Metric icon={<TrendingDown />} label="Current Daily Cost" value={`Rs. ${o.currentCost.toLocaleString()}`} note="Usual start times, before optimization" tone="red" />
         <Metric icon={<CheckCircle2 />} label="Optimized Daily Cost" value={`Rs. ${o.optimizedCost.toLocaleString()}`} note="Cheapest legal start times" tone="green" />
         <Metric icon={<Sparkles />} label="Daily Saving" value={`Rs. ${Number(o.dailySaving).toLocaleString()}`} note={`+${o.savingPercent}% saved every day`} tone="green" />
         <Metric icon={<BarChart3 />} label="Monthly Saving" value={`Rs. ${Number(o.monthlySaving).toLocaleString()}`} note="Based on working days / month" tone="blue" />
@@ -151,7 +151,7 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
             <p>The thin line under each bar is the machine's available window (constraint). The solid bar is the run time chosen by the solver. Both update automatically when machines or factory hours change.</p>
           </div>
           <div className="legend">
-            <span className="offpeak" /> Off-peak <span className="day" /> Day standard <span className="peak" /> Peak <span className="winlegend" /> Available window <span className="runlegend" /> Optimized run
+            <span className="offpeak" /> Off-peak <span className="day" /> Day standard <span className="peak" /> Peak <span className="winlegend" /> Available window <span className="beforelegend" /> Usual run (before) <span className="runlegend" /> Optimized run
           </div>
         </div>
         <div className="tariff-strip">
@@ -174,11 +174,15 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
           const slot = slotFor(m.id);
           const win = toSegments(toMin(m.availableStart ?? '00:00'), toMin(m.availableEnd ?? '00:00'));
           const run = slot ? toSegments(toMin(slot.start), toMin(slot.end)) : [];
+          // The usual (before-optimization) run, drawn as a dashed outline when the optimizer moved it.
+          const usual = m.usualStart ? m.usualStart.slice(0, 5) : '';
+          const before = slot && usual && usual !== slot.start
+            ? toSegments(toMin(usual), toMin(usual) + Math.round(m.hours * 60)) : [];
           return (
             <div className="schedule-row" key={m.id}>
               <div className="schedule-label">
                 <b>{i + 1}. {m.name}</b>
-                <span>{m.quantity} Units • {((m.quantity * m.power) / 1000).toFixed(1)} kW total • {m.hours}h required</span>
+                <span>{m.quantity} Units • {(m.quantity * m.power).toLocaleString()} W total • {m.hours}h required</span>
                 <strong className={slot ? '' : 'red-text'}>{slot ? `Run ${fmt12(slot.start)} – ${fmt12(slot.end)}` : 'Not scheduled'}</strong>
               </div>
               <div className="track" style={{ backgroundImage: 'none' }}>
@@ -190,6 +194,10 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
                 ))}
                 {win.map((w, k) => (
                   <div key={k} className="window-bar" style={{ left: `${w.left}%`, width: `${w.width}%` }} title={`Available ${m.window}`} />
+                ))}
+                {before.map((b, k) => (
+                  <div key={`b${k}`} className="bar-before" style={{ left: `${b.left}%`, width: `${b.width}%` }}
+                    title={`Usual run (before): ${fmt12(usual)}`} />
                 ))}
                 {run.map((r, k) => {
                   // Short runs can't fit the time inside the bar, so the label sits beside it.
@@ -206,7 +214,13 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
                   );
                 })}
               </div>
-              <small className="window-note">Available window: {m.window}{slot ? ` • ${slot.energy} kWh • Cost Rs. ${slot.cost.toLocaleString()}${slot.saving > 0 ? ` • Saves Rs. ${slot.saving.toLocaleString()}` : ''}` : ' • runtime does not fit this window inside factory hours'}</small>
+              <small className="window-note">
+                Available window: {m.window}
+                {slot ? ` • ${slot.energy} kWh • Cost Rs. ${slot.cost.toLocaleString()}` : ' • runtime does not fit this window inside factory hours'}
+                {slot && slot.saving > 0 && (
+                  <> • Before: {usual ? fmt12(usual) : 'window open'} start, Rs. {(slot.cost + slot.saving).toLocaleString()} → <b className="green-text">saves Rs. {slot.saving.toLocaleString()}/day</b></>
+                )}
+              </small>
             </div>
           );
         })}
@@ -228,7 +242,7 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
             <div className="action-card" key={m.id}>
               <div className="action-card-head">
                 <span>{m.category.toUpperCase()} LINE</span>
-                <small>{((m.quantity * m.power) / 1000).toFixed(1)} kW</small>
+                <small>{(m.quantity * m.power).toLocaleString()} W</small>
               </div>
               <b>Run {m.name} ({slotFor(m.id) ? `${fmt12(slotFor(m.id)!.start)} – ${fmt12(slotFor(m.id)!.end)}` : m.window})</b>
               <p>
@@ -248,11 +262,12 @@ export function Optimization({ machines, optimization: o, onChanged, tariffs, se
       </button>
       {open && (
         <div className="how-body">
-          Baseline cost assumes every machine starts at the opening of its available window.
+          The current (baseline) cost is what each machine costs at its usual start time, i.e. how the factory ran it
+          before using this app (or at window open if no usual time is set).
           The optimizer tries every 30-minute start inside the window (and inside factory hours). For each start it adds up
-          power (kW) × 0.5 h × the CEB rate of every half-hour the machine would run
+          power (W ÷ 1000 = kW) × 0.5 h × the CEB rate of every half-hour the machine would run
           {` (Off-Peak ${offPeak} / Day ${dayRate} / Peak ${peakRate})`}, then picks the cheapest start.
-          Saving appears only when a different start is cheaper than starting at window open
+          Saving appears when a different start is cheaper than the usual start
           (for example Peak → Off-Peak). Same kWh, different clock time, different bill.
         </div>
       )}

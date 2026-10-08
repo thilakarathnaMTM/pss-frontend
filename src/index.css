@@ -57,3 +57,94 @@
 .schedule-bar.bar-narrow{overflow:visible}
 .bar-label-out{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;color:#064e47;font:600 10px 'JetBrains Mono';pointer-events:none}
 .bar-label-out.to-right{left:100%;margin-left:8px}.bar-label-out.to-left{right:100%;margin-right:8px}
+
+/* ---- planning / charts / history ---- */
+.year-controls{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.year-chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.year-chips button{display:flex;align-items:center;gap:6px;padding:7px 11px;border:1px solid #d6dee8;border-radius:6px;background:#fff;color:#526071;font:600 11px 'JetBrains Mono'}
+.year-chips button.active{border-color:#0b1c30;background:#0b1c30;color:#fff}
+.year-chips i,.year-dot{display:inline-block;width:9px;height:9px;border-radius:2px}
+.year-dot{margin-right:7px;vertical-align:middle}
+.year-add{display:flex;gap:6px;align-items:center}
+.year-add input{width:84px;height:36px;padding:0 9px;border:1px solid #d6dee8;border-radius:6px;font:500 12px 'JetBrains Mono'}
+.year-add .secondary-button{height:36px;padding:0 11px;display:flex;align-items:center;gap:5px;font-size:12px}
+.chart-section{margin-bottom:22px}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px 18px;border-bottom:1px solid #e3e8ef}
+.chart-card{min-width:0;padding:12px 12px 6px;border:1px solid #e3e9f2;border-radius:8px;background:#fff}
+.chart-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+.chart-head h3{font:700 13px 'Space Grotesk';color:var(--ink)}
+.chart-head p{margin-top:2px;color:#697586;font-size:10px}
+.chart-legend{display:flex;gap:10px;flex-wrap:wrap;color:#485364;font:500 10px 'JetBrains Mono'}
+.chart-legend span{display:flex;align-items:center;gap:5px}
+.chart-legend i,.chart-tip i{display:inline-block;width:10px;height:10px;border-radius:2px}
+.chart-wrap{position:relative;width:100%}
+.chart-wrap svg{display:block}
+.chart-gridline{stroke:#edf1f6;stroke-width:1}
+.chart-baseline{stroke:#cfd7e2;stroke-width:1}
+.chart-axis{fill:#7a8594;font:500 10px 'JetBrains Mono'}
+.chart-hover-band{fill:#0b1c3008}
+.chart-tip{position:absolute;top:4px;transform:translateX(-50%);z-index:5;min-width:150px;padding:8px 10px;border-radius:7px;background:#0b1c30;color:#fff;box-shadow:0 6px 18px #0b1c3030;pointer-events:none;font:500 10px 'JetBrains Mono'}
+.chart-tip b{display:block;margin-bottom:4px;font-size:11px}
+.chart-tip span{display:flex;align-items:center;gap:6px;margin-top:2px}
+.chart-tip em{margin-left:auto;padding-left:12px;font-style:normal;font-weight:700}
+.year-table{min-width:760px}
+.season-chip{display:inline-block;padding:4px 8px;border-radius:20px;font:600 10px 'JetBrains Mono'}
+.season-peak{background:#ffe8e6;color:#9b2c2c}.season-normal{background:#eaf2ff;color:#2364c1}.season-low{background:#eef2f7;color:#566171}
+.machine-toggle-list{margin-top:16px;display:grid;gap:6px}
+.machine-toggle-list>b{color:#293648;font:600 10px 'JetBrains Mono';letter-spacing:.06em;text-transform:uppercase}
+.machine-toggle-list label{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid #e2e7ee;border-radius:6px;font-size:12px;color:var(--ink);cursor:pointer}
+.machine-toggle-list label small{margin-left:auto;color:#7a8594;font:500 10px 'JetBrains Mono'}
+.machine-toggle-list input{width:15px;height:15px;accent-color:#08776e}
+.planning-empty{padding:40px}
+.history-card{margin-top:22px}
+.history-row{cursor:pointer}
+.history-detail td{background:#f7f9fc}
+.history-slots{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.history-slots .window-chip{font:500 10px 'JetBrains Mono'}
+.history-slots .window-chip b{color:var(--ink);margin-right:4px}
+@media(max-width:1000px){.chart-grid{grid-template-columns:1fr}.year-controls{align-items:flex-start}.year-chips{justify-content:flex-start}}
+
+/* ---- usual run (before optimization) + optimizer toggle ---- */
+.bar-before{position:absolute;top:5px;bottom:16px;z-index:1;border:1.5px dashed #c0392b;border-radius:5px;background:repeating-linear-gradient(135deg,#c0392b14 0 4px,transparent 4px 8px)}
+.legend .beforelegend{width:16px;height:10px;border-radius:3px;border:1.5px dashed #c0392b;background:transparent}
+.window-note b{font-weight:700}
+.optimizer-toggle{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:10px 12px;border:1px solid #bceee5;border-radius:7px;background:#f0fbf8;cursor:pointer}
+.optimizer-toggle input{margin-top:2px;width:15px;height:15px;accent-color:#08776e}
+.optimizer-toggle b{display:block;color:var(--ink);font-size:12px}
+.optimizer-toggle small{display:block;margin-top:3px;color:#697586;font-size:11px;line-height:1.4}
+.form-grid label small.table-muted{display:block;margin-top:5px;font:400 10px Inter;letter-spacing:0;text-transform:none}
+
+/* ---- recommended actions (styles were missing for these class names) ---- */
+.actions-grid{margin-top:22px;padding:4px 0 20px;background:#fff;border:1px solid #e0e6ef;border-radius:10px;box-shadow:0 2px 5px #0b1c3009}
+.action-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;padding:0 20px}
+.action-card{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:8px;background:#f3f7ff}
+.action-card-head{display:flex;justify-content:space-between;align-items:center;color:#08776e;font:600 10px 'JetBrains Mono';letter-spacing:.06em}
+.action-card-head small{padding:3px 6px;border-radius:3px;background:#e5eaf2;color:#647080;font:600 10px 'JetBrains Mono';letter-spacing:0}
+.action-card>b{font:600 14px/1.3 'Space Grotesk';color:var(--ink)}
+.action-card>p{color:#687486;font-size:11px;line-height:1.5}
+.action-card>span{margin-top:auto;font:600 10px 'JetBrains Mono'}
+
+/* ---- machine health / ageing ---- */
+.health-card{margin-top:22px}
+.health-metrics{padding:16px 18px 0;margin-bottom:6px}
+.health-alerts{display:grid;gap:8px;padding:10px 18px 16px}
+.health-alert{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border-radius:8px;border:1px solid}
+.health-alert p{margin-top:3px;font-size:11px;line-height:1.5;color:#485364}
+.health-alert>div>b{font:700 13px 'Space Grotesk';color:var(--ink)}
+.health-alert.health-replace{background:#fff1ef;border-color:#f3c7c1;color:#b83232}
+.health-alert.health-service{background:#fff8e6;border-color:#f1d99a;color:#a26a00}
+.health-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:20px;white-space:nowrap;font:600 10px 'JetBrains Mono'}
+.health-chip.health-replace{background:#ffe8e6;color:#b83232}
+.health-chip.health-service{background:#fff2d5;color:#9a6300}
+.health-chip.health-monitor{background:#eaf2ff;color:#2364c1}
+.health-chip.health-good{background:#e4faf3;color:#087b65}
+.health-chip.health-unknown{background:#eef2f7;color:#566171}
+.health-reco{min-width:280px;max-width:420px;font-size:11px;line-height:1.45;color:#485364}
+.health-card td small.table-muted{display:block}
+.health-card .text-button{padding:0;font:600 11px 'JetBrains Mono';color:#08776e}
+
+/* ---- modal form summary (style was missing) + tall modals scroll on short screens ---- */
+.form-summary{display:flex;align-items:center;gap:8px;margin-top:16px;padding:10px 12px;border-radius:7px;background:#f3f7ff;color:#485364;font-size:12px}
+.form-summary svg{flex:none;color:#08776e}
+.form-summary b{color:var(--ink)}
+.add-modal{max-height:calc(100vh - 36px);overflow-y:auto}
